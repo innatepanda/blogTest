@@ -17,7 +17,7 @@
     </head>
     <body>
         <!-- Navigation-->
-        <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
+        <nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
             <div class="container">
                 <a class="navbar-brand" href="index.html">Start Bootstrap</a>
                 <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
@@ -30,19 +30,37 @@
                         <li class="nav-item"><a class="nav-link" href="about.html">About</a></li>
                         <li class="nav-item"><a class="nav-link" href="post.html">Sample Post</a></li>
                         <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
+                         <li class="nav-item"><a class="nav-link" href="create.html">new</a></li>
                     </ul>
                 </div>
             </div>
         </nav>
         <!-- Page Header-->
-        <header class="masthead" style="background-image: url('assets/img/about-bg.jpg')">
+        <header class="" >
             <div class="overlay"></div>
             <div class="container">
                 <div class="row">
-                    <div class="col-lg-8 col-md-10 mx-auto">
-                        <div class="page-heading">
-                            <h1>About Me</h1>
-                            <span class="subheading">This is what I do.</span>
+                    <div class="col-lg-8 col-md-10 mx-auto"><br><br>
+                        <div class="display-4 form-group">
+                            <h1>Create new</h1>
+                            <br>
+                            <h3>Title</h3>
+                            <input type="text" id="title" class="hr form-control">
+                            <br>
+                            <h3>Date</h3>
+                            <input type="date" id="date"  class="hr form-control">
+                            <br>
+                            <h3>Author</h3>
+                            <input type="text" id="author" class="hr form-control">
+                            <br>
+                            <h3>Content</h3>
+                            <textarea type="textarea" id="content" rows="5" class="hr form-control">
+                            </textarea>
+
+                           
+                            
+
+
                         </div>
                     </div>
                 </div>
@@ -51,10 +69,12 @@
         <!-- Main Content-->
         <div class="container">
             <div class="row">
-                <div class="col-lg-8 col-md-10 mx-auto">
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Saepe nostrum ullam eveniet pariatur voluptates odit, fuga atque ea nobis sit soluta odio, adipisci quas excepturi maxime quae totam ducimus consectetur?</p>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eius praesentium recusandae illo eaque architecto error, repellendus iusto reprehenderit, doloribus, minus sunt. Numquam at quae voluptatum in officia voluptas voluptatibus, minus!</p>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aut consequuntur magnam, excepturi aliquid ex itaque esse est vero natus quae optio aperiam soluta voluptatibus corporis atque iste neque sit tempora!</p>
+                <div class="col-lg-8 col-md-10 mx-auto" >
+                
+                    
+                    
+                    <!-- Pager-->
+                    <div class="clearfix"><button  value="post" id="submitbtn" type="Submit" class="btn btn-primary float-left" >Submit →</button></div>
                 </div>
             </div>
         </div>
@@ -97,10 +117,20 @@
         </footer>
         <!-- The core Firebase JS SDK is always required and must be listed first -->
         <script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-app.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-firestore.js"></script>
+        <!-- TODO: Add SDKs for Firebase products that you want to use
+        https://firebase.google.com/docs/web/setup#available-libraries -->
+        <script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-analytics.js"></script>
         <!-- Bootstrap core JS-->
         <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js"></script>
         <!-- Core theme JS-->
         <script src="js/scripts.js"></script>
+        <script src="js/create.js"></script>
     </body>
 </html>
+
+
+
+
+
