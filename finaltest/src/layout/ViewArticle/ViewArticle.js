@@ -1,22 +1,91 @@
 import React, {Component} from 'react'
 import classes from './ViewArticle.module.css'
+import parse from 'html-react-parser';
+import {withRouter} from 'react-router-dom'
+import {Container} from 'reactstrap'
+import firebase from '../../../src/component/Config/firebase'
 
+const db=firebase.firestore();
 class ViewArticle extends Component{
     constructor(props){
         super(props);
         this.state={
-            
+            article:{},
+            loaded:false,
         }
-        console.log(props.data)
+        
+       
     }
 
+        componentDidMount(){
+            if(typeof this.props.location.state!=='undefined')
+           { this.setState(
+                {
+                    article: this.props.location.state.article
+                }
+            , ()=>{
+                this.setState(
+                    {
+                        loaded:true
+                    }
+                )
+
+            }
+            )
+        }
+        else{
+            console.log(this.props.match.params.id)
+            this.getById(this.props.match.params.id);
+        }
+
+        }
+
+
+    getById=(aid)=>{
+        console.log("yip")
+        db.collection("posts").doc(aid).get().then(doc=>{
+            if(doc.exists)
+            {
+                this.setState({
+                    article: doc.data()
+                }, ()=>{
+                    this.setState(
+                        {
+                            loaded:true
+                        }
+                    )
+    
+                })
+            }
+            else
+            {
+                
+                this.props.history.push({pathname:'/'})
+            }
+        } )
+    }
     render(){
-        return(
+        if(this.state.loaded)
+       { var a=this.state.article
+           return(
             <div>
-                view/new
+                <div>
+                {parse(a.Title)}
+                </div>
+                
+                {parse(this.state.article.Content)}
+                
             </div>
         )
+       }
+       else{
+           return(
+               <div>
+                   loading..
+               </div>
+           )
+       }
     }
 }
 
-export default ViewArticle
+export default withRouter(ViewArticle)

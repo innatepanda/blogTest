@@ -30,7 +30,7 @@ const ArticleCard=(props)=>{
             </p>
         </CardSubtitle>
         
-        <Link to={{pathName:'/article/'  +props.data.id+'/'+props.data.Title, state:{article:props.data}}}> Go </Link>
+        <Link to={{pathname:'/article/'  +props.data.id+'/'+props.data.Title, state:{article:props.data}}}> Go </Link>
         </CardBody>
         
     </Card>

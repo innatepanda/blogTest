@@ -1,0 +1,5 @@
+import React, {Component} from 'react'
+import {Container} from 'reactstrap'
+import {connect} from 'react-redux'
+import StyledFirebaseAuth from 'react-firebaseui/StyledFirebaseAuth'
+import firebase from '../../component/Config/firebase'
