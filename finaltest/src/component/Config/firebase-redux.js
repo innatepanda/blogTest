@@ -7,7 +7,7 @@ const rootReducer=combineReducers({
 })
 
 const initState={}
-const store={rootReducer, initState}
+const store=createStore(rootReducer, initState)
 
 const rrfconfig={
 
@@ -25,103 +25,3 @@ export function getStore(){
 export function getProps(){
     return rrfprops
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

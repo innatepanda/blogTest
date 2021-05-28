@@ -14,7 +14,7 @@ class ViewArticle extends Component{
             loaded:false,
         }
         
-       
+    
     }
 
         componentDidMount(){
@@ -34,6 +34,7 @@ class ViewArticle extends Component{
             )
         }
         else{
+            console.log(this.props)
             console.log(this.props.match.params.id)
             this.getById(this.props.match.params.id);
         }
@@ -42,7 +43,7 @@ class ViewArticle extends Component{
 
 
     getById=(aid)=>{
-        console.log("yip")
+        
         db.collection("posts").doc(aid).get().then(doc=>{
             if(doc.exists)
             {

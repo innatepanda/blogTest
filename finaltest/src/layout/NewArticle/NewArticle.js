@@ -1,23 +1,43 @@
+
 import React, {Component} from 'react'
 import classes from './NewArticle.module.css'
 import {Container, Row, Col, Card, CardHeader, FormGroup, Label, Input, Button} from 'reactstrap'
 import ReactQuill from 'react-quill'
 import 'react-quill/dist/quill.snow.css'
+import firebase from 'firebase'
+import Compressor from 'compressorjs'
+import Quill from 'quill';
+
+import { ImageResize } from 'quill-image-resize-module';
+
+Quill.register('modules/imageResize', ImageResize);
 
 
+
+
+
+
+
+
+const db=firebase.firestore();
 class NewArticle extends Component{
     constructor(props){
         super(props);
+        console.log(this.props.auth)
         this.state={
             article:{
                 Title:'',
                 Content:'',
                 Created:new Date(),
-                Author:'',
+                
                 Category:'General',
+                Author:this.props.auth.uid,
+                
+                
 
             }
         }
+        
     }
     toolbarOptions = [
         ['bold', 'italic', 'underline', 'strike'],        // toggled buttons
@@ -40,21 +60,39 @@ class NewArticle extends Component{
                                           // remove formatting button
       ];
     modules = {
-        toolbar: this.toolbarOptions,
+        
+        toolbar: {
+            container:this.toolbarOptions,
+            handlers:{
+                image:()=>this.quillImageCallBack()
+                
+            }
+        },
+        ImageResize: {
+            modules: [ 'Resize', 'DisplaySize', 'Toolbar' ]
+        }
+        
+        
       }
     
       formats = [
         'header', 'font', 'size',
         'bold', 'italic', 'underline', 'strike', 'blockquote',
         'list', 'bullet', 'indent',
-        'link', 'image', 'color', 'clean', 'code-block', 'code'
+        'link', 'image', 'color', 'clean', 'code-block', 'code', 'align'
       ]
 
+      quillImageCallBack=()=>{
+          
+    }
+
       onChangeTitle=(value)=>{
+        console.log(this.props.auth)
           this.setState({
               article:{
                   ...this.state.article,
                   Title:value,
+                  
               }
           })
       }
@@ -83,6 +121,17 @@ class NewArticle extends Component{
               Category:value,
           }
       })
+    }
+
+    submitArticle=()=>{
+        console.log(this.state.article)
+        db.collection("posts").add(this.state.article).then(
+            res=>{
+                console.log(res)
+            }
+        ).catch(err=>console.log(err))
+
+
     }
 
     render(){
@@ -129,7 +178,7 @@ class NewArticle extends Component{
                         </Col>
                         <Col xl={3} lg={3} md={8} sm={12} xs={12}>
                             
-                            <Button onClick={(e)=>console.log(this.state.article)}>Click me</Button>
+                            <Button onClick={(e)=>this.submitArticle()}>Click me</Button>
                         </Col>
                     </Row>
                 </Container>
