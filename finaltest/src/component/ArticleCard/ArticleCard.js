@@ -1,9 +1,10 @@
 import React, { Component } from 'react'
-import {Card, CardImg, CardTitle, CardSubtitle, CardBody, Badge } from 'reactstrap'
+import { Jumbotron, Button} from 'reactstrap'
 import {Link} from 'react-router-dom'
 import classes from './ArticleCard.module.css'
 import firebase from '../../../src/component/Config/firebase'
 import { render } from '@testing-library/react'
+
 
 const db=firebase.firestore();
 let p
@@ -58,26 +59,25 @@ class ArticleCard extends Component{
            console.log(this.props.data) 
             return(
     
-                <Card className={classes.ArticleCard}>
+                <Jumbotron className={classes.ArticleCard}>
                     
-                    
-                    <CardBody className={classes.CardBody}>
-                    <CardTitle className={classes.CardTitle}>
+                    <h3 className={classes.CardTitle}>
                         {this.state.things.Title}
-                    </CardTitle>
-                    <CardSubtitle className={classes.CardSubtitle}>
+                    </h3>
+                    <hr />
                         
-                    
+                    <h6>
                     <b>{this.state.things.Created.split("-")[2]}-{this.state.things.Created.split("-")[1]}-{this.state.things.Created.split("-")[0]}</b> by <b>{this.state.things.artauth}</b>
                         <p>
                         {this.state.things.Summary}
                         </p>
-                    </CardSubtitle>
-                    
+
+                    </h6>
                     <Link to={{pathname:'/article/'  +this.state.things.id+'/'+this.state.things.Title, state:{article:this.props.data}}}> Go </Link>
-                    </CardBody>
                     
-                </Card>
+                    
+                </Jumbotron>
+                
                 );
     
 

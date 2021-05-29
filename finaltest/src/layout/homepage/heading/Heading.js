@@ -18,18 +18,39 @@ import {
   NavbarText, Button
 } from 'reactstrap';
 
-
+const db=firebase.firestore();
       class Heading extends Component { 
         
+        getauth(){
+    
+    
+          db.collection("users").doc(this.state.display).get().then(
+              doc=>{
+                  console.log(doc.data().name)
+                  this.setState({
+
+                    name:doc.data().name
+                      
+                  })
+                  
+              }
+             
+      
+          )
+              
+      
+          }
             constructor(props){
               super(props);
               
               this.state={
-                
+                display:props.auth.email,
+                name:''
               
               }
-              console.log("in")
+              console.log(props)
               this.open=false
+              this.getauth()
               
               
             }
@@ -87,7 +108,7 @@ import {
                           </DropdownMenu>
                         </UncontrolledDropdown>
                       </Nav>
-                      <NavbarText>{this.props.auth.displayName}</NavbarText>
+                      <NavbarText>{this.state.name}</NavbarText>
                     </Collapse>
                   </Navbar>
                 </div>
