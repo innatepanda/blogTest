@@ -8,21 +8,30 @@ const uiConfig={
     signInFlow:'popup',
     signInSuccessUrl :'/',
     signInOptions:[
-        firebase.auth.GoogleAuthProvider.PROVIDER_ID
+        firebase.auth.EmailAuthProvider.PROVIDER_ID
     ]
     
 }
+//var email, password;
 class Login extends Component{
     constructor(props){
         super(props);
+        this.state={
+            email:'',
+            password:'',
+            response:''
+        }
     }
 
-  
+  signin(){
+      firebase.auth().createUserWithEmailAndPassword()
+  }
     render(){
         console.log(this.props)
         return(
             <Container>
                 <StyledFirebaseAuth uiConfig={uiConfig} firebaseAuth={firebase.auth()}/>
+                
             
             </Container>
         )

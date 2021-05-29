@@ -19,7 +19,9 @@ class ViewArticle extends Component{
 
         componentDidMount(){
             if(typeof this.props.location.state!=='undefined')
-           { this.setState(
+           { 
+               
+               this.setState(
                 {
                     article: this.props.location.state.article
                 }
@@ -32,6 +34,7 @@ class ViewArticle extends Component{
 
             }
             )
+            
         }
         else{
             console.log(this.props)
@@ -68,13 +71,14 @@ class ViewArticle extends Component{
     render(){
         if(this.state.loaded)
        { var a=this.state.article
+        
            return(
             <div>
                 <div>
                 {parse(a.Title)}
                 </div>
+                {parse(a.Content)}
                 
-                {parse(this.state.article.Content)}
                 
             </div>
         )

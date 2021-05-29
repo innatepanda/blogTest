@@ -6,11 +6,11 @@ import ReactQuill from 'react-quill'
 import 'react-quill/dist/quill.snow.css'
 import firebase from 'firebase'
 import Compressor from 'compressorjs'
-import Quill from 'quill';
+/*import Quill from 'quill';
 
 import { ImageResize } from 'quill-image-resize-module';
 
-Quill.register('modules/imageResize', ImageResize);
+Quill.register('modules/imageResize', ImageResize);*/
 
 
 
@@ -29,9 +29,9 @@ class NewArticle extends Component{
                 Title:'',
                 Content:'',
                 Created:new Date(),
-                
+                Summary:'',
                 Category:'General',
-                Author:this.props.auth.uid,
+                Author:this.props.auth.email,
                 
                 
 
@@ -68,12 +68,16 @@ class NewArticle extends Component{
                 
             }
         },
-        ImageResize: {
+        /*ImageResize: {
             modules: [ 'Resize', 'DisplaySize', 'Toolbar' ]
-        }
+        }*/
         
         
       }
+
+      quillImageCallBack=()=>{
+        
+    }
     
       formats = [
         'header', 'font', 'size',
@@ -82,9 +86,7 @@ class NewArticle extends Component{
         'link', 'image', 'color', 'clean', 'code-block', 'code', 'align'
       ]
 
-      quillImageCallBack=()=>{
-          
-    }
+      
 
       onChangeTitle=(value)=>{
         console.log(this.props.auth)
@@ -122,12 +124,22 @@ class NewArticle extends Component{
           }
       })
     }
+    onChangeSum=(value)=>{
+        this.setState({
+            article:{
+                ...this.state.article,
+                Summary:value,
+            }
+        })
+      }
 
     submitArticle=()=>{
         console.log(this.state.article)
         db.collection("posts").add(this.state.article).then(
             res=>{
+
                 console.log(res)
+                
             }
         ).catch(err=>console.log(err))
 
@@ -160,6 +172,13 @@ class NewArticle extends Component{
                                 <Input type='date' name='newdate' id='newdate'
                                 onChange={(el)=>this.onChangeDate(el.target.value)}
                                 value={this.state.article.Created}/>
+                                
+                            </FormGroup>
+                            <FormGroup>
+                                <Label>Summary</Label>
+                                <Input type='text' name='newsum' id='newsum'
+                                onChange={(el)=>this.onChangeSum(el.target.value)}
+                                value={this.state.article.Summary}/>
                                 
                             </FormGroup>
                             <FormGroup>
