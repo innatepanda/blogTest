@@ -132,6 +132,15 @@ class NewArticle extends Component{
             }
         })
       }
+      onChangeYt=(value)=>{
+        this.setState({
+            article:{
+                ...this.state.article,
+                Youtube:value,
+            }
+        })
+      }
+
 
     submitArticle=()=>{
         console.log(this.state.article)
@@ -139,7 +148,7 @@ class NewArticle extends Component{
             res=>{
 
                 console.log(res)
-                
+
             }
         ).catch(err=>console.log(err))
 
@@ -179,6 +188,13 @@ class NewArticle extends Component{
                                 <Input type='text' name='newsum' id='newsum'
                                 onChange={(el)=>this.onChangeSum(el.target.value)}
                                 value={this.state.article.Summary}/>
+                                
+                            </FormGroup>
+                            <FormGroup>
+                                <Label>Youtube Link</Label>
+                                <Input type='text' name='newyt' id='newyt'
+                                onChange={(el)=>this.onChangeYt(el.target.value)}
+                                value={this.state.article.Youtube}/>
                                 
                             </FormGroup>
                             <FormGroup>

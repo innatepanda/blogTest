@@ -4,6 +4,7 @@ import parse from 'html-react-parser';
 import {withRouter} from 'react-router-dom'
 import {Container} from 'reactstrap'
 import firebase from '../../../src/component/Config/firebase'
+import YouTubePlayer from 'react-player/youtube';
 
 const db=firebase.firestore();
 class ViewArticle extends Component{
@@ -74,6 +75,8 @@ class ViewArticle extends Component{
         
            return(
             <div>
+                <YouTubePlayer  url={a.Youtube}/>
+      
                 <div>
                 {parse(a.Title)}
                 </div>
