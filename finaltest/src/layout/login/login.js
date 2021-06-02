@@ -46,6 +46,16 @@ class Login extends Component{
           });
         
     }
+    resetPw(){
+        firebase.auth().sendPasswordResetEmail(
+            this.state.res.email, null)
+            .then(function() {
+              // Password reset email sent.
+            })
+            .catch(function(error) {
+              console.log(error)
+            });
+    }
         
 
     
@@ -70,6 +80,7 @@ class Login extends Component{
                                 
                             </FormGroup>
                             <Button onClick={(e)=>this.submitEm()}>Login</Button>
+                            <Button onClick={(e)=>this.resetPw()}>Reset pw</Button>
             
             </Container>
         )

@@ -2,28 +2,25 @@ import React, {Component} from 'react'
 import {Container} from 'reactstrap'
 import ArticleCard from "../../../component/ArticleCard/ArticleCard"
 import firebase from "../../../component/Config/firebase"
-import {Card, CardBody, CardFooter, Jumbotron} from 'reactstrap'
 import {Button} from 'reactstrap'
-import classes from './Main.module.css'
 import {Link} from 'react-router-dom'
 const db=firebase.firestore();
 var today;
-class Main extends Component{
+class AllArticles extends Component{
+ 
     constructor(props)
     {
         
         super(props)
-        
+        {
             this.state={
                 isLoaded:false,
                 articles:[],
-                article:{},
-                prop:props
-                
+                article:{}
 
 
             }
-        
+        }
         this.today = new Date();
         var dd = String(this.today.getDate()).padStart(2, '0');
         var mm = String(this.today.getMonth() + 1).padStart(2, '0'); //January is 0!
@@ -39,15 +36,12 @@ class Main extends Component{
 
 
         getArt=()=>{
-            
-            var p=this.state.prop.auth
             db.collection("posts").where("Created", "<=",this.today )
-            .orderBy("Created", "desc").limit(4).get().then(docs=>{
+            .orderBy("Created", "desc").get().then(docs=>{
                 let art=[];
                 docs.forEach(function(doc){
                     const article={
                         id:doc.id,
-                        auth:p,
                         ...doc.data()
                     }
                     art.push(article);
@@ -63,9 +57,8 @@ class Main extends Component{
         }
     render(){
         return(
-            <div className={classes.body}>
-                <h1 className={classes.title}>BLOG</h1>
-                <Container className={classes.main}>
+            <div>
+                <Container>
                  {  
                     this.state.isLoaded?                     
                     this.state.articles.map((article, index)=>{
@@ -76,6 +69,23 @@ class Main extends Component{
                                 key={index}
                                 data={article}/>
                                 
+
+
+                                 
+                                {
+                                    !this.props.auth.isEmpty?
+
+                                    <Link to={{pathname:'/iJ6hjvpfuivhi0pioubxjovbbdYVyfgv/edit-article' , state:{
+                                        article:article
+                                        
+                                    }}}> Edit </Link>
+                                    :''
+
+                                }
+
+                                
+
+                                
                             </div>
                             
                            
@@ -83,7 +93,7 @@ class Main extends Component{
                     }) :" "
                 }  
                 </Container>
-                <Button href="/allArticles">View All</Button>
+                
 
                 
             </div>
@@ -91,4 +101,4 @@ class Main extends Component{
     }
 }
 
-export default Main;
+export default AllArticles;

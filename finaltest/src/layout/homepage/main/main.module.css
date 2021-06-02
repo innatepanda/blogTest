@@ -1,0 +1,13 @@
+.main{
+    display: flex;
+}
+.body{
+    background-color: black;
+    color: white
+}
+.title{
+    text-align:left;
+    font-size:90px;
+    
+    padding:80px
+}

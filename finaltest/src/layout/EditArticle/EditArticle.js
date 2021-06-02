@@ -1,5 +1,6 @@
 
 import React, {Component} from 'react'
+
 import {Container, Row, Col, Card, CardHeader, FormGroup, Label, Input, Button} from 'reactstrap'
 import ReactQuill from 'react-quill'
 import 'react-quill/dist/quill.snow.css'
@@ -22,21 +23,11 @@ const db=firebase.firestore();
 class NewArticle extends Component{
     constructor(props){
         super(props);
-        
+        console.log(props)
         this.state={
-            article:{
-                Title:'',
-                Content:'',
-                Created:new Date(),
-                Summary:'',
-                Category:'General',
-                Author:this.props.auth.email,
-                
-                
-
-            },
-            sum:150,
-            t:20
+            article:props.location.state.article,
+            sum:150-props.location.state.article.Summary.length,
+            t:20-props.location.state.article.Title.length
         }
         
     }
@@ -159,7 +150,17 @@ class NewArticle extends Component{
 
     submitArticle=()=>{
         console.log(this.state.article)
-        db.collection("posts").add(this.state.article).then(
+        db.collection("posts").doc(this.state.article.id).update({
+            Title:this.state.article.Title,
+            Content: this.state.article.Content,
+            Created:this.state.article.Created,
+            Summary: this.state.article.Summary,
+            Youtube:this.state.article.Youtube,
+            Category:this.state.article.Category,
+            
+        }
+
+        ).then(
             res=>{
 
                 console.log(res)
@@ -177,7 +178,7 @@ class NewArticle extends Component{
                 <Container>
                     <Row>
                         <Col xl={9} lg={9} md={8} sm={12} xs={12}>
-                            <h2>Create New</h2>
+                            <h2>Edit Article</h2>
                             <FormGroup>
                                 <Label>Title</Label>
                                 <Input type='text' name='newtitle' id='newtitle' maxlength="20"

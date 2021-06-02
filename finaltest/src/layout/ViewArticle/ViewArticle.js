@@ -5,14 +5,17 @@ import {withRouter} from 'react-router-dom'
 import {Container} from 'reactstrap'
 import firebase from '../../../src/component/Config/firebase'
 import YouTubePlayer from 'react-player/youtube';
+import {Link} from 'react-router-dom'
 
 const db=firebase.firestore();
 class ViewArticle extends Component{
     constructor(props){
         super(props);
+        console.log(props)
         this.state={
             article:{},
             loaded:false,
+            //auth:props.auth
         }
         
     
@@ -75,6 +78,15 @@ class ViewArticle extends Component{
         
            return(
             <div>
+                {
+                    !this.state.auth.isEmpty?
+                    
+                        <Link to={{pathname:'/iJ6hjvpfuivhi0pioubxjovbbdYVyfgv/edit-article' , state:{article:this.state.article}}}> Edit </Link>
+                    
+                    :''
+
+                }
+                
                 <YouTubePlayer  url={a.Youtube}/>
       
                 <div>

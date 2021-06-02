@@ -26,12 +26,17 @@ const db=firebase.firestore();
     
           db.collection("users").doc(this.state.display).get().then(
               doc=>{
+                if(doc.exists)
+                {
                   console.log(doc.data().name)
                   this.setState({
 
                     name:doc.data().name
                       
                   })
+
+                }
+                  
                   
               }
              
@@ -45,20 +50,23 @@ const db=firebase.firestore();
               
               this.state={
                 display:props.auth.email,
-                name:''
+                name:'',
+                open:false
               
               }
               console.log(props)
-              this.open=false
-              this.getauth()
+              
+              if(!props.auth.isEmpty)
+                this.getauth()
               
               
             }
             toggle=()=>{
-              this.open=!this.open
-              console.log(this.open)
               
-              
+              this.setState({
+                open:!this.state.open
+
+              })
               
             }
 
@@ -70,12 +78,19 @@ const db=firebase.firestore();
                   <Navbar color="light" light expand="md">
                     <NavbarBrand href="/">Home</NavbarBrand>
                     <NavbarToggler onClick={this.toggle} />
-                    <Collapse isOpen={this.open} navbar>
+                    <Collapse isOpen={this.state.open} navbar>
                       <Nav className="ml-auto" navbar>
                         {this.props.auth.isEmpty?
                         ' ': 
                           <NavItem>
                           <NavLink href='/iJ6hjvpfuivhi0pvikbshvYVyfgv/new-article'>New Article</NavLink>
+                        </NavItem>
+                        
+                      }
+                      {this.props.auth.isEmpty?
+                        ' ': 
+                          <NavItem>
+                          <NavLink href='/iJ6hjvpfuivhi0pvikbshvYVyfgv/new-user'>New User</NavLink>
                         </NavItem>
                         
                       }
@@ -95,7 +110,13 @@ const db=firebase.firestore();
                               
                             </DropdownItem>
                             : <DropdownItem>
-                              <Button onClick={()=>firebase.auth().signOut()}>
+                              <Button onClick={()=>
+                                {firebase.auth().signOut()
+                                this.setState({
+                                  display:'',
+                                  name:''
+
+                                })}}>
                                 Logout
                               </Button>
                           </DropdownItem>

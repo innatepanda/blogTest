@@ -3,7 +3,10 @@ import { BrowserRouter as Router , Switch, Route, withRouter} from 'react-router
 import Main from "../homepage/main/Main"
 import ViewArticle from "../ViewArticle/ViewArticle"
 import NewArticle from "../NewArticle/NewArticle"
+import EditArticle from "../EditArticle/EditArticle"
+import AllArticles from "../homepage/main/allArticles"
 import Login from '../login/login'
+import NewUser from '../NewUser/NewUser'
 import {connect} from 'react-redux'
 import Heading from "../homepage/heading/Heading"
 import firebase from 'firebase'
@@ -27,13 +30,12 @@ class RouterManager extends Component{
         {
             return(    
                 <div>
-                    
-                                            
+                
                             <div>
                                 <Heading {...this.props}/>     
                                 <Switch>
                                     <Route path="/" exact>
-                                        <Main />
+                                        <Main {...this.props}/>
                                     </Route>
                                     <Route path="/article/:id" >
                                         <ViewArticle />
@@ -41,8 +43,17 @@ class RouterManager extends Component{
                                     <Route path="/iJ6hjvpfuivhi0pvikbshvYVyfgv/new-article" exact>
                                     <NewArticle {...this.props}/>
                                     </Route>
+                                    <Route path="/iJ6hjvpfuivhi0pvikbshvYVyfgv/new-user" exact>
+                                    <NewUser {...this.props}/>
+                                    </Route>
+                                    <Route path="/iJ6hjvpfuivhi0pioubxjovbbdYVyfgv/edit-article" exact>
+                                    <EditArticle {...this.props}/>
+                                    </Route>
                                     <Route path="/login" >
                                         <Login {...this.props}/>
+                                    </Route>
+                                    <Route path="/allArticles" >
+                                        <AllArticles {...this.props}/>
                                     </Route>
                                     <Route path="*" >
                                         <Main/>
