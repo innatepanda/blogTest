@@ -6,7 +6,7 @@ import {Card, CardBody, CardFooter, Jumbotron} from 'reactstrap'
 import {Button} from 'reactstrap'
 import classes from './Main.module.css'
 import {Link} from 'react-router-dom'
-import admin from '../../../component/Config/firebase-admin'
+
 const db=firebase.firestore();
 var today;
 class Main extends Component{
@@ -31,16 +31,7 @@ class Main extends Component{
         var yyyy = this.today.getFullYear();
 
         this.today = yyyy + '-' + mm + '-' + dd;
-        admin
-  .auth()
-  .getUser(this.state.props.auth.uid)
-  .then((userRecord) => {
-    // See the UserRecord reference doc for the contents of userRecord.
-    console.log(`Successfully fetched user data: ${userRecord.toJSON()}`);
-  })
-  .catch((error) => {
-    console.log('Error fetching user data:', error);
-  });
+        
         
     }
 
