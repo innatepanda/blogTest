@@ -85,7 +85,7 @@ class Main extends Component{
                     }) :" "
                 }  
                 </Container>
-                <Button href="/allArticles">View All</Button>
+                <Link to={{pathname:'/allArticles', state:{article:this.state.data}}}> View All </Link>
 
                 
             </div>

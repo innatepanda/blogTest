@@ -12,7 +12,7 @@ class AllArticles extends Component{
     {
         
         super(props)
-        {
+        
             this.state={
                 isLoaded:false,
                 articles:[],
@@ -20,7 +20,7 @@ class AllArticles extends Component{
 
 
             }
-        }
+        console.log(props);
         this.today = new Date();
         var dd = String(this.today.getDate()).padStart(2, '0');
         var mm = String(this.today.getMonth() + 1).padStart(2, '0'); //January is 0!
@@ -36,12 +36,14 @@ class AllArticles extends Component{
 
 
         getArt=()=>{
+            var p=this.props.auth
             db.collection("posts").where("Created", "<=",this.today )
             .orderBy("Created", "desc").get().then(docs=>{
                 let art=[];
                 docs.forEach(function(doc){
                     const article={
                         id:doc.id,
+                        auth:p,
                         ...doc.data()
                     }
                     art.push(article);
@@ -68,23 +70,6 @@ class AllArticles extends Component{
                                 <ArticleCard 
                                 key={index}
                                 data={article}/>
-                                
-
-
-                                 
-                                {
-                                    !this.props.auth.isEmpty?
-
-                                    <Link to={{pathname:'/iJ6hjvpfuivhi0pioubxjovbbdYVyfgv/edit-article' , state:{
-                                        article:article
-                                        
-                                    }}}> Edit </Link>
-                                    :''
-
-                                }
-
-                                
-
                                 
                             </div>
                             

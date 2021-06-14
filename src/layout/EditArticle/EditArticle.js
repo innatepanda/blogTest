@@ -167,7 +167,7 @@ class NewArticle extends Component{
 
             }
         ).catch(err=>console.log(err))
-        this.props.history.push('/')
+        this.props.history.push('/article/'+this.state.article.id+'/'+this.state.article.Title)
 
 
     }

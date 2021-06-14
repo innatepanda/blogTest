@@ -23,7 +23,10 @@ class ArticleCard extends Component{
             Created:this.props.data.Created,
             id:this.props.data.id,
             loaded:false,
-            auth:this.props.data.auth
+            auth:this.props.data.auth,
+            Content: this.props.data.Content,
+            Category: this.props.data.Category,
+            Youtube: this.props.data.Youtube
 
             },
             
@@ -75,13 +78,13 @@ class ArticleCard extends Component{
                         </p>
 
                     </h6>
-                    <Link to={{pathname:'/article/'  +this.state.things.id+'/'+this.state.things.Title, state:{article:this.state.data}}}> Go </Link>
+                    <Link to={{pathname:'/article/'  +this.state.things.id+'/'+this.state.things.Title, state:{article:this.state.things}}}> Go </Link>
                     
                     {
                                     !this.state.things.auth.isEmpty?
 
                                     <Link to={{pathname:'/iJ6hjvpfuivhi0pioubxjovbbdYVyfgv/edit-article' , state:{
-                                        article:this.state.data
+                                        article:this.state.things
                                         
                                     }}}> Edit </Link>
                                     :''

@@ -9,6 +9,8 @@ import Login from '../login/login'
 import NewUser from '../NewUser/NewUser'
 import {connect} from 'react-redux'
 import Heading from "../homepage/heading/Heading"
+import UserProfile from '../NewUser/UserProfile'
+import ChangeProfile from '../NewUser/ChangeProfile'
 import firebase from 'firebase'
 
 const enhance=connect(
@@ -54,6 +56,12 @@ class RouterManager extends Component{
                                     </Route>
                                     <Route path="/allArticles" >
                                         <AllArticles {...this.props}/>
+                                    </Route>
+                                    <Route path="/user-profile/:id" >
+                                        <UserProfile/>
+                                    </Route>
+                                    <Route path="/change-settings" >
+                                        <ChangeProfile {...this.props}/>
                                     </Route>
                                     <Route path="*" >
                                         <Main/>

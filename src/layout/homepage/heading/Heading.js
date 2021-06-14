@@ -90,7 +90,7 @@ const db=firebase.firestore();
                       {this.props.auth.isEmpty?
                         ' ': 
                           <NavItem>
-                          <NavLink href='/iJ6hjvpfuivhi0pvikbshvYVyfgv/new-user'>New User</NavLink>
+                          <NavLink href='/change-settings'>Change Profile</NavLink>
                         </NavItem>
                         
                       }

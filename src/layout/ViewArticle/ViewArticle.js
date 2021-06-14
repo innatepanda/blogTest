@@ -15,29 +15,29 @@ class ViewArticle extends Component{
         this.state={
             article:{},
             loaded:false,
-            //auth:props.auth
+            auth:''
         }
         
-    
     }
 
         componentDidMount(){
             if(typeof this.props.location.state!=='undefined')
            { 
                
-               this.setState(
+               
+            this.setState(
                 {
-                    article: this.props.location.state.article
-                }
-            , ()=>{
-                this.setState(
-                    {
-                        loaded:true
-                    }
-                )
+                    article: this.props.location.state.article,
+                    auth:this.props.location.state.article.auth,
+                    loaded: true
+               
+                       
 
-            }
+                },
+                ()=> console.log(this.state.loaded)
             )
+        
+            
             
         }
         else{
@@ -75,7 +75,7 @@ class ViewArticle extends Component{
     render(){
         if(this.state.loaded)
        { var a=this.state.article
-        
+        console.log(a)
            return(
             <div>
                 {
@@ -89,9 +89,9 @@ class ViewArticle extends Component{
                 
                 <YouTubePlayer  url={a.Youtube}/>
       
-                <div>
-                {parse(a.Title)}
-                </div>
+                <div>{parse(a.Title)}</div>
+                
+                
                 {parse(a.Content)}
                 
                 
