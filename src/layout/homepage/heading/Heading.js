@@ -87,14 +87,7 @@ const db=firebase.firestore();
                         </NavItem>
                         
                       }
-                      {this.props.auth.isEmpty?
-                        ' ': 
-                          <NavItem>
-                          <NavLink href='/change-settings'>Change Profile</NavLink>
-                        </NavItem>
-                        
-                      }
-                        
+                      
                         <UncontrolledDropdown nav inNavbar>
                           <DropdownToggle nav caret>
                             Options
@@ -121,7 +114,16 @@ const db=firebase.firestore();
                               </Button>
                           </DropdownItem>
                         } 
-                            
+                            {this.props.auth.isEmpty?
+                        ' ': 
+                          <DropdownItem>
+                          <Link to={{pathname:'/change-settings', state:{profile:this.props.auth}}}>
+                                  Profile Settings
+                                </Link>
+                        </DropdownItem>
+                        
+                      }
+                        
                             <DropdownItem divider />
                             <DropdownItem>
                               Reset

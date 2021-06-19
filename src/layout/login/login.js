@@ -50,7 +50,8 @@ class Login extends Component{
         firebase.auth().sendPasswordResetEmail(
             this.state.res.email, null)
             .then(function() {
-              // Password reset email sent.
+                this.props.history.push('/link-sent')}).catch((error)=>{
+                    this.props.history.push('/link-sent')
             })
             .catch(function(error) {
               console.log(error)

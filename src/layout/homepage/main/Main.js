@@ -57,6 +57,7 @@ class Main extends Component{
                 this.setState({
                     articles:art
                 }, ()=>{
+                    console.log(this.state.articles)
                     this.setState({
                         isLoaded: true
                     })

@@ -6,11 +6,12 @@ import NewArticle from "../NewArticle/NewArticle"
 import EditArticle from "../EditArticle/EditArticle"
 import AllArticles from "../homepage/main/allArticles"
 import Login from '../login/login'
-import NewUser from '../NewUser/NewUser'
+
 import {connect} from 'react-redux'
 import Heading from "../homepage/heading/Heading"
 import UserProfile from '../NewUser/UserProfile'
 import ChangeProfile from '../NewUser/ChangeProfile'
+import LinkSent from './LinkSent'
 import firebase from 'firebase'
 
 const enhance=connect(
@@ -45,9 +46,7 @@ class RouterManager extends Component{
                                     <Route path="/iJ6hjvpfuivhi0pvikbshvYVyfgv/new-article" exact>
                                     <NewArticle {...this.props}/>
                                     </Route>
-                                    <Route path="/iJ6hjvpfuivhi0pvikbshvYVyfgv/new-user" exact>
-                                    <NewUser {...this.props}/>
-                                    </Route>
+                                    
                                     <Route path="/iJ6hjvpfuivhi0pioubxjovbbdYVyfgv/edit-article" exact>
                                     <EditArticle {...this.props}/>
                                     </Route>
@@ -62,6 +61,9 @@ class RouterManager extends Component{
                                     </Route>
                                     <Route path="/change-settings" >
                                         <ChangeProfile {...this.props}/>
+                                    </Route>
+                                    <Route path="/link-sent" >
+                                        <LinkSent/>
                                     </Route>
                                     <Route path="*" >
                                         <Main/>

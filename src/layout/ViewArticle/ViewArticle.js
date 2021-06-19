@@ -15,7 +15,8 @@ class ViewArticle extends Component{
         this.state={
             article:{},
             loaded:false,
-            auth:''
+            auth:'',
+            artauth:''
         }
         
     }
@@ -34,7 +35,7 @@ class ViewArticle extends Component{
                        
 
                 },
-                ()=> console.log(this.state.loaded)
+                ()=> this.getauth()
             )
         
             
@@ -48,7 +49,26 @@ class ViewArticle extends Component{
 
         }
 
-
+        getauth(){
+    
+    
+            db.collection("users").doc(this.state.article.Author).get().then(
+                doc=>{
+                    
+                    this.setState({
+                        
+                            artauth:doc.data(),
+                            
+                    })
+                    
+                }
+               
+        
+            )
+            console.log(this.state.artauth)
+                
+        
+            }
     getById=(aid)=>{
         
         db.collection("posts").doc(aid).get().then(doc=>{
@@ -64,6 +84,7 @@ class ViewArticle extends Component{
                     )
     
                 })
+                this.getauth()
             }
             else
             {
@@ -74,7 +95,13 @@ class ViewArticle extends Component{
     }
     render(){
         if(this.state.loaded)
-       { var a=this.state.article
+       { 
+        
+        this.state.artauth={
+            artauth:this.state.artauth,
+            auth:this.state.auth
+        }
+        var a=this.state.article
         console.log(a)
            return(
             <div>
@@ -91,6 +118,13 @@ class ViewArticle extends Component{
       
                 <div>{parse(a.Title)}</div>
                 
+                {
+                    
+                        <Link to={{pathname:'/user-profile/'+this.state.artauth.artauth.name +'/', state:{author: this.state.artauth}}}> {this.state.artauth.artauth.name} </Link>
+                    
+                   
+
+                }
                 
                 {parse(a.Content)}
                 
