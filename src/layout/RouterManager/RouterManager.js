@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { BrowserRouter as Router , Switch, Route, withRouter} from 'react-router-dom'
+import {Switch, Route, withRouter} from 'react-router-dom'
 import Main from "../homepage/main/Main"
 import ViewArticle from "../ViewArticle/ViewArticle"
 import NewArticle from "../NewArticle/NewArticle"
@@ -12,7 +12,7 @@ import Heading from "../homepage/heading/Heading"
 import UserProfile from '../NewUser/UserProfile'
 import ChangeProfile from '../NewUser/ChangeProfile'
 import LinkSent from './LinkSent'
-import firebase from 'firebase'
+
 
 const enhance=connect(
   ({firebase:{auth, profile}})=>({
@@ -56,7 +56,7 @@ class RouterManager extends Component{
                                     <Route path="/allArticles" >
                                         <AllArticles {...this.props}/>
                                     </Route>
-                                    <Route path="/user-profile/:id" >
+                                    <Route path="/user-profile/:id/:name" >
                                         <UserProfile/>
                                     </Route>
                                     <Route path="/change-settings" >

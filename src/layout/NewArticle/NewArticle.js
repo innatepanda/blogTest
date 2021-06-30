@@ -30,7 +30,7 @@ class NewArticle extends Component{
                 Created:new Date(),
                 Summary:'',
                 Category:'General',
-                Author:this.props.auth.email,
+                Author:this.props.auth.uid,
                 
                 
 

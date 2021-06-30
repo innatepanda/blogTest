@@ -2,9 +2,9 @@ import React, {Component} from 'react'
 
 import parse from 'html-react-parser';
 import {withRouter} from 'react-router-dom'
-import {Container} from 'reactstrap'
+
 import firebase from '../../../src/component/Config/firebase'
-import ArticleCard from '../../component/ArticleCard/ArticleCard'
+
 import {Link} from 'react-router-dom'
 
 const db=firebase.firestore();
@@ -18,35 +18,10 @@ class ViewArticle extends Component{
             articles:[],
             auth:''
         }
-        
+        this.getById(this.props.match.params.id);
     }
 
-        componentDidMount(){
-            if(typeof this.props.location.state!=='undefined')
-           { 
-               
-               
-            this.setState(
-                {
-                    
-                    author:this.props.location.state.author.artauth,
-                    auth: this.props.location.state.author.auth
-                },
-                ()=> {
-                   
-                    this.getp()
-                }
-            )
         
-            
-            
-        }
-        else{
-            
-            this.getById(this.props.match.params.id);
-        }
-
-        }
 
 
     getById=(aid)=>{
@@ -65,7 +40,7 @@ class ViewArticle extends Component{
     
                 })
                
-                
+                this.getp()
                 
             }
             else
@@ -79,11 +54,12 @@ class ViewArticle extends Component{
 
     getposts= async ()=>{
         let art=[]
-        
+        console.log(this.props.match.params.id)
 
-                db.collection("posts")
-                .where("Author", "==", this.state.author.authemail).limit(3).get().then(
+              await  db.collection("posts")
+                .where("Author", "==", this.props.match.params.id).limit(3).get().then(
                     docs=>{
+                       
                         var n=this.state.author.name
                         docs.forEach(function(doc){
                             const article={
@@ -104,7 +80,7 @@ class ViewArticle extends Component{
                         articles:art,
                         loaded: true
                     }, ()=>{
-                        console.log(this.state.articles)
+                        
                         console.log("art loaded")
                        
     
@@ -118,6 +94,7 @@ class ViewArticle extends Component{
         let v=await this.getposts()
     }
     render(){
+        
         if(this.state.loaded)
        { var a=this.state.author
         
@@ -126,7 +103,7 @@ class ViewArticle extends Component{
                 
                 {a.name}
                 <div>
-                {a.desc}
+                {parse(a.desc)}
                
 
                 </div>

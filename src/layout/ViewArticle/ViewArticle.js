@@ -1,8 +1,8 @@
 import React, {Component} from 'react'
-import classes from './ViewArticle.module.css'
+
 import parse from 'html-react-parser';
 import {withRouter} from 'react-router-dom'
-import {Container} from 'reactstrap'
+
 import firebase from '../../../src/component/Config/firebase'
 import YouTubePlayer from 'react-player/youtube';
 import {Link} from 'react-router-dom'
@@ -120,7 +120,7 @@ class ViewArticle extends Component{
                 
                 {
                     
-                        <Link to={{pathname:'/user-profile/'+this.state.artauth.artauth.name +'/', state:{author: this.state.artauth}}}> {this.state.artauth.artauth.name} </Link>
+                        <Link to={{pathname:'/user-profile/'+this.state.article.Author+'/'+this.state.artauth.artauth.name +'/', state:{author: this.state.artauth}}}> {this.state.artauth.artauth.name} </Link>
                     
                    
 

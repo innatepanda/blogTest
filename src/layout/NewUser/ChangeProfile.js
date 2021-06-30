@@ -1,11 +1,11 @@
 
 import React, {Component} from 'react'
 
-import {Container, Row, Col, Card, CardHeader, FormGroup, Label, Input, Button} from 'reactstrap'
+import {Container, Row, Col,  FormGroup, Label, Input, Button} from 'reactstrap'
 import ReactQuill from 'react-quill'
 import 'react-quill/dist/quill.snow.css'
 import firebase from 'firebase'
-import Compressor from 'compressorjs'
+//import Compressor from 'compressorjs'
 /*import Quill from 'quill';
 
 import { ImageResize } from 'quill-image-resize-module';
@@ -28,7 +28,10 @@ class ChangeProfile extends Component{
         this.state={
             auth: props.auth,
             user:{
-                name:this.props.
+                name:"",
+                email:"",
+                desc:"",
+                github:"",
             }
         }
         
@@ -82,68 +85,40 @@ class ChangeProfile extends Component{
 
       
 
-      onChangeName=(value)=>{
-        
-        this.setState({
-            
-            t:20-value.length
-            
-        })
-          this.setState({
-              article:{
-                  ...this.state.article,
-                  Name:value,
-                  
-              }
-          })
-          
-      }
+      
 
-      onChangeContent=(value)=>{
+      onChangedesc=(value)=>{
         this.setState({
-            article:{
-                ...this.state.article,
-                Content:value,
+            user:{
+                ...this.state.user,
+                desc:value,
             }
         })
       }
       onChangegithub=(value)=>{
         this.setState({
-            article:{
-                ...this.state.article,
-                Created:value,
+            user:{
+                ...this.state.user,
+                github:value,
             }
         })
     }
 
     onChangeat=(value)=>{
       this.setState({
-          article:{
-              ...this.state.article,
-              Email:value,
+          user:{
+              ...this.state.user,
+              email:value,
           }
       })
     }
-    onChangeSum=(value)=>{
+    
+      
+      onChangename=(value)=>{
         this.setState({
-            article:{
-                ...this.state.article,
-                Summary:value,
-            }
-            
-        })
-        this.setState({
-            sum:150-value.length
-            
-        })
-
-
-      }
-      onChangeYt=(value)=>{
-        this.setState({
-            article:{
-                ...this.state.article,
-                Youtube:value,
+            user:{
+                ...this.state.user,
+                name:value,
             }
             
         })
@@ -152,10 +127,11 @@ class ChangeProfile extends Component{
 
     submitArticle=()=>{
         console.log(this.state.article)
-        db.collection("users").doc(this.state.article.id).update({
+        db.collection("users").doc(this.state.auth.uid).update({
             name:this.state.user.name,
             email: this.state.user.email,
-            desc: this.state.desc,
+            desc: this.state.user.desc,
+            github: this.state.user.github,
 
 
             
@@ -168,11 +144,25 @@ class ChangeProfile extends Component{
 
             }
         ).catch(err=>console.log(err))
-        this.props.history.push('/article/'+this.state.article.id+'/'+this.state.article.Name)
+        this.props.history.push('/user-profile/'+this.state.auth.uid+'/'+this.state.user.name)
 
 
     }
-
+componentDidMount(){
+    db.collection("users").doc(this.state.auth.uid).get().then(
+        doc=>{console.log(doc.data())
+        this.setState({
+            user:{
+                name:doc.data().name,
+                email:doc.data().email,
+                desc:doc.data().desc,
+                github:doc.data().github,
+            }
+        })
+        }
+    )
+    console.log(this.state.user)
+}
     render(){
         return(
             <div>
@@ -183,43 +173,31 @@ class ChangeProfile extends Component{
                             <FormGroup>
                                 <Label>Display Name</Label>
                                 <Input type='text' name='newName' id='newName' maxlength="20"
-                                onChange={(el)=>this.onChangeName(el.target.value) }
-                                value={this.state.auth.name}/>
+                                onChange={(el)=>this.onChangename(el.target.value) }
+                                value={this.state.user.name}/>
                                 {this.state.t}
                             </FormGroup>
                             <FormGroup>
-                                <Label>Emailegory</Label>
+                                <Label>Email</Label>
                                 <Input type='text' name='newEmail' id='newEmail'
-                                onChange={(el)=>this.onChangeEmail(el.target.value)}
-                                value={this.state.article.Email}/>
+                                onChange={(el)=>this.onChangeat(el.target.value)}
+                                value={this.state.user.email}/>
                                 
                             </FormGroup>
+                            
+                            
                             <FormGroup>
-                                <Label>github</Label>
-                                <Input type='github' name='newgithub' id='newgithub' 
-                                onChange={(el)=>this.onChangegithub(el.target.value)}
-                                value={this.state.article.Created}/>
-                                
-                            </FormGroup>
-                            <FormGroup>
-                                <Label>Summary</Label>
-                                <Input type='text' name='newsum' id='newsum' maxlength="150"
-                                onChange={(el)=>this.onChangeSum(el.target.value)}
-                                value={this.state.article.Summary}/>
-                                {this.state.sum}
-                            </FormGroup>
-                            <FormGroup>
-                                <Label>Youtube Link</Label>
+                                <Label>Github Link</Label>
                                 <Input type='text' name='newyt' id='newyt'
-                                onChange={(el)=>this.onChangeYt(el.target.value)}
-                                value={this.state.article.Youtube}/>
+                                onChange={(el)=>this.onChangegithub(el.target.value)}
+                                value={this.state.user.github}/>
                                 
                             </FormGroup>
                             <FormGroup>
                                 <ReactQuill 
                                 ref={(el)=>this.quill=el}
-                                value={this.state.article.Content}
-                                onChange={(el)=>this.onChangeContent(el)}
+                                value={this.state.user.desc}
+                                onChange={(el)=>this.onChangedesc(el)}
                                 theme='snow'
                                 formats={this.formats}
                                 modules={this.modules}
@@ -238,7 +216,7 @@ class ChangeProfile extends Component{
             </div>
         )
     }
-}
 
+}
 
 export default ChangeProfile
