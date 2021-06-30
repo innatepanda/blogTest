@@ -39,7 +39,7 @@ class Login extends Component{
       }
      
       submitEm=async()=>{
-        const resp = await firebase.auth()
+         await firebase.auth()
           .signInWithEmailAndPassword(this.state.res.email, this.state.res.password).then((user)=>{console.log(user)
             this.props.history.push('/')}).catch((error)=>{
                 this.props.history.push('/')

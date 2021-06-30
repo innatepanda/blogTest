@@ -6,7 +6,7 @@ import firebase from "../../../component/Config/firebase"
 import {Link} from 'react-router-dom'
 */
 const db=firebase.firestore();
-var today;
+
 class AllArticles extends Component{
  
     constructor(props)

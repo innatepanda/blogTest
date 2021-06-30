@@ -7,7 +7,7 @@ import classes from './Main.module.css'
 import {Link} from 'react-router-dom'
 
 const db=firebase.firestore();
-var today;
+
 class Main extends Component{
     constructor(props)
     {

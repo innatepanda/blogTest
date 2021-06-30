@@ -91,7 +91,7 @@ class ViewArticle extends Component{
     }
 
     getp=async()=>{
-        let v=await this.getposts()
+        await this.getposts()
     }
     render(){
         

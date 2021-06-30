@@ -65,7 +65,7 @@ class ViewArticle extends Component{
                
         
             )
-            console.log(this.state.artauth)
+            
                 
         
             }
@@ -97,10 +97,11 @@ class ViewArticle extends Component{
         if(this.state.loaded)
        { 
         
-        this.state.artauth={
+       var art={
             artauth:this.state.artauth,
             auth:this.state.auth
         }
+        console.log(art)
         var a=this.state.article
         console.log(a)
            return(
@@ -120,7 +121,7 @@ class ViewArticle extends Component{
                 
                 {
                     
-                        <Link to={{pathname:'/user-profile/'+this.state.article.Author+'/'+this.state.artauth.artauth.name +'/', state:{author: this.state.artauth}}}> {this.state.artauth.artauth.name} </Link>
+                        <Link to={{pathname:'/user-profile/'+this.state.article.Author+'/'+art.artauth.name +'/', state:{author: art}}}> {art.artauth.name} </Link>
                     
                    
 
