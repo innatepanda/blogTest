@@ -2,8 +2,7 @@ import React, {Component} from 'react'
 import {Container} from 'reactstrap'
 import ArticleCard from "../../../component/ArticleCard/ArticleCard"
 import firebase from "../../../component/Config/firebase"
-import {Card, CardBody, CardFooter, Jumbotron} from 'reactstrap'
-import {Button} from 'reactstrap'
+
 import classes from './Main.module.css'
 import {Link} from 'react-router-dom'
 

@@ -1,11 +1,11 @@
 
 import React, {Component} from 'react'
 
-import {Container, Row, Col, Card, CardHeader, FormGroup, Label, Input, Button} from 'reactstrap'
+import {Container, Row, Col, FormGroup, Label, Input, Button} from 'reactstrap'
 import ReactQuill from 'react-quill'
 import 'react-quill/dist/quill.snow.css'
 import firebase from 'firebase'
-import Compressor from 'compressorjs'
+//import Compressor from 'compressorjs'
 /*import Quill from 'quill';
 
 import { ImageResize } from 'quill-image-resize-module';

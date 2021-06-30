@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
-import {Container, Row, Col, Card, CardHeader, FormGroup, Label, Input, Button} from 'reactstrap'
+import {Container,FormGroup, Label, Input, Button} from 'reactstrap'
 import firebase from '../../component/Config/firebase'
-import  { Redirect } from 'react-router-dom'
+//import  { Redirect } from 'react-router-dom'
 
 //var email, password;
 class Login extends Component{

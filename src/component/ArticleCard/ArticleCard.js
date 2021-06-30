@@ -1,9 +1,9 @@
 import React, { Component } from 'react'
-import {Card, CardBody, CardFooter, Jumbotron, Button} from 'reactstrap'
+import {Card} from 'reactstrap'
 import {Link} from 'react-router-dom'
 import classes from './ArticleCard.module.css'
 import firebase from '../../../src/component/Config/firebase'
-import { render } from '@testing-library/react'
+
 
 
 const db=firebase.firestore();

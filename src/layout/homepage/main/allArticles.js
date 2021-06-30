@@ -2,8 +2,9 @@ import React, {Component} from 'react'
 import {Container} from 'reactstrap'
 import ArticleCard from "../../../component/ArticleCard/ArticleCard"
 import firebase from "../../../component/Config/firebase"
-import {Button} from 'reactstrap'
+/*import {Button} from 'reactstrap'
 import {Link} from 'react-router-dom'
+*/
 const db=firebase.firestore();
 var today;
 class AllArticles extends Component{
