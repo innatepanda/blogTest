@@ -1,7 +1,7 @@
 
 import React, {Component} from 'react'
 
-import {Container, Row, Col,  FormGroup, Label, Input, Button} from 'reactstrap'
+import {Container , FormGroup, Label, Input, Button} from 'reactstrap'
 import ReactQuill from 'react-quill'
 import 'react-quill/dist/quill.snow.css'
 import firebase from 'firebase'
@@ -19,7 +19,7 @@ Quill.register('modules/imageResize', ImageResize);*/
 
 
 
-
+var newPassword;
 const db=firebase.firestore();
 class ChangeProfile extends Component{
     constructor(props){
@@ -32,7 +32,8 @@ class ChangeProfile extends Component{
                 email:"",
                 desc:"",
                 github:"",
-            }
+            },
+            actualuser:firebase.auth().currentUser
         }
         
     }
@@ -137,8 +138,22 @@ class ChangeProfile extends Component{
             
         }
 
-        ).then(
-            res=>{
+        ).then((res)=>{
+            this.state.actualuser.updateEmail(this.state.user.email).then(() => {
+                // Update successful
+                // ...
+              }).catch((error) => {
+                // An error occurred
+                // ...
+              })
+              this.state.actualuser.updatePassword(newPassword).then(() => {
+                // Update successful.
+                console.log("pw")
+              }).catch((error) => {
+                // An error ocurred
+                // ...
+              })
+            
 
                 console.log(res)
 
@@ -159,16 +174,17 @@ componentDidMount(){
                 github:doc.data().github,
             }
         })
-        }
-    )
+        })
+        
+    
     console.log(this.state.user)
 }
     render(){
         return(
             <div>
                 <Container>
-                    <Row>
-                        <Col xl={9} lg={9} md={8} sm={12} xs={12}>
+                    <div>
+                        <div >
                             <h2>Edit Profile</h2>
                             <FormGroup>
                                 <Label>Display Name</Label>
@@ -204,14 +220,21 @@ componentDidMount(){
                                 />
                                 Note: select text then click on link, select text then click on clean format (tx sorta symbol)
                                 Note: first code is codeblock next is inline code
+                                <br />
+                                <br />
+                                
+                            </FormGroup>
+                            <FormGroup>
+                                <Label>Change Password:</Label>
+                             <Input id="input-field" type="password" onChange={(e)=>{newPassword=e.target.value}} /><br />
                             </FormGroup>
 
-                        </Col>
-                        <Col xl={3} lg={3} md={8} sm={12} xs={12}>
+                        </div>
+                        <div >
                             
-                            <Button onClick={(e)=>this.submitArticle()}>Click me</Button>
-                        </Col>
-                    </Row>
+                            <Button onClick={(e)=>this.submitArticle()}>Save Changes</Button>
+                        </div>
+                    </div>
                 </Container>
             </div>
         )

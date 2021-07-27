@@ -109,7 +109,10 @@ const db=firebase.firestore();
                                   display:'',
                                   name:''
 
-                                })}}>
+                                })
+                                
+                              }
+                                } href="/">
                                 Logout
                               </Button>
                           </DropdownItem>

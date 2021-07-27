@@ -6,7 +6,7 @@ import NewArticle from "../NewArticle/NewArticle"
 import EditArticle from "../EditArticle/EditArticle"
 import AllArticles from "../homepage/main/allArticles"
 import Login from '../login/login'
-
+import ErrorModal from '../../component/ErrorModal/ErrorModal'
 import {connect} from 'react-redux'
 import Heading from "../homepage/heading/Heading"
 import UserProfile from '../NewUser/UserProfile'
@@ -24,43 +24,48 @@ class RouterManager extends Component{
     {
         super(props)
         
-        this.state={
-
-        }
+        
+        this.modalref=React.createRef()
     }
     render(){
         if(this.props.auth.isLoaded )
         {
+            var pr={
+                color:'red',
+                open:false,
+                msg:'dummy'
+            }
             return(    
                 <div>
+                    <ErrorModal ref={this.modalref} content={pr}/>
                 
                             <div>
-                                <Heading {...this.props}/>     
+                                <Heading {...this.props} showmodal={(p)=>{this.modalref.current.showmodal(p)}}/>     
                                 <Switch>
                                     <Route path="/" exact>
-                                        <Main {...this.props}/>
+                                        <Main {...this.props} showmodal={(p)=>{this.modalref.current.showmodal(p)}}/>
                                     </Route>
                                     <Route path="/article/:id" >
-                                        <ViewArticle />
+                                        <ViewArticle showmodal={(p)=>{this.modalref.current.showmodal(p)}}/>
                                     </Route>
                                     <Route path="/iJ6hjvpfuivhi0pvikbshvYVyfgv/new-article" exact>
-                                    <NewArticle {...this.props}/>
+                                    <NewArticle {...this.props} showmodal={(p)=>{this.modalref.current.showmodal(p)}}/>
                                     </Route>
                                     
                                     <Route path="/iJ6hjvpfuivhi0pioubxjovbbdYVyfgv/edit-article" exact>
-                                    <EditArticle {...this.props}/>
+                                    <EditArticle {...this.props} showmodal={(p)=>{this.modalref.current.showmodal(p)}}/>
                                     </Route>
                                     <Route path="/login" >
-                                        <Login {...this.props}/>
+                                        <Login {...this.props}showmodal={(p)=>{this.modalref.current.showmodal(p)}}/>
                                     </Route>
                                     <Route path="/allArticles" >
-                                        <AllArticles {...this.props}/>
+                                        <AllArticles {...this.props} showmodal={(p)=>{this.modalref.current.showmodal(p)}}/>
                                     </Route>
                                     <Route path="/user-profile/:id/:name" >
-                                        <UserProfile/>
+                                        <UserProfile showmodal={(p)=>{this.modalref.current.showmodal(p)}}/>
                                     </Route>
                                     <Route path="/change-settings" >
-                                        <ChangeProfile {...this.props}/>
+                                        <ChangeProfile {...this.props} showmodal={(p)=>{this.modalref.current.showmodal(p)}}/>
                                     </Route>
                                     <Route path="/link-sent" >
                                         <LinkSent/>

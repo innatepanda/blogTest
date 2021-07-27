@@ -16,7 +16,8 @@ class ViewArticle extends Component{
             article:{},
             loaded:false,
             auth:'',
-            artauth:''
+            artauth:'',
+            
         }
         
     }
@@ -103,13 +104,23 @@ class ViewArticle extends Component{
         }
         console.log(art)
         var a=this.state.article
-        console.log(a)
-           return(
+        
+            return(
             <div>
                 {
-                    !this.state.auth.isEmpty?
-                    
-                        <Link to={{pathname:'/iJ6hjvpfuivhi0pioubxjovbbdYVyfgv/edit-article' , state:{article:this.state.article}}}> Edit </Link>
+                    this.state.auth.uid===this.state.article.Author?
+                    <div>
+                            <Link to={{pathname:'/iJ6hjvpfuivhi0pioubxjovbbdYVyfgv/edit-article' , state:{article:this.state.article}}}> Edit </Link>
+                            <button onClick={()=>{
+                                db.collection("posts").doc(this.state.article.id).delete().then(() => {
+                                    console.log("Document successfully deleted!");
+                                    this.props.history.push("/")
+                                }).catch((error) => {
+                                    console.error("Error removing document: ", error);
+                                });
+                            }}>delete</button>
+                    </div>
+            
                     
                     :''
 

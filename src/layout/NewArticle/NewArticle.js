@@ -123,7 +123,7 @@ class NewArticle extends Component{
         })
     }
 
-    onChangeat=(value)=>{
+    onChangeCat=(value)=>{
       this.setState({
           article:{
               ...this.state.article,

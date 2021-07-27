@@ -1,20 +1,24 @@
 import React, {Component} from 'react'
 import {Container,FormGroup, Label, Input, Button} from 'reactstrap'
 import firebase from '../../component/Config/firebase'
+
 //import  { Redirect } from 'react-router-dom'
 
 //var email, password;
+var pr;
 class Login extends Component{
     constructor(props){
         super(props);
+        console.log(props)
         this.state={
+            
             res:{
                 email:'',
             password:'',
-            response:''
-
-            }
+            response:'',
             
+            },
+            showmodal:props.showmodal
         }
     }
     
@@ -29,7 +33,7 @@ class Login extends Component{
         })
       }
       onChangePw=(value)=>{
-          console.log(value)
+          
         this.setState({
             res:{
                 ...this.state.res,
@@ -39,11 +43,24 @@ class Login extends Component{
       }
      
       submitEm=async()=>{
-         await firebase.auth()
+          
+          
+          
+            await firebase.auth()
           .signInWithEmailAndPassword(this.state.res.email, this.state.res.password).then((user)=>{console.log(user)
             this.props.history.push('/')}).catch((error)=>{
-                this.props.history.push('/')
+                console.log(error.code)
+                console.log(error.message)
+                //this.props.history.push('/')
+                pr={
+                    color:'red',
+                    open:true,
+                    msg:error.message
+                  }
+                  this.state.showmodal(pr)
           });
+          
+         
         
     }
     resetPw(){
@@ -75,7 +92,7 @@ class Login extends Component{
                             </FormGroup>
                             <FormGroup>
                                 <Label>Pw</Label>
-                                <Input type='text' name='newpw' id='newpw'
+                                <Input type='password' name='newpw' id='newpw'
                                 onChange={(el)=>this.onChangePw(el.target.value)}
                                 value={this.state.res.password}/>
                                 
