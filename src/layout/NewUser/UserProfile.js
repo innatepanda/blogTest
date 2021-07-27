@@ -96,6 +96,7 @@ class ViewArticle extends Component{
                 ).finally(()=>{
                     this.setState({
                         articles:art,
+                        maxpgs:Math.ceil(art.length/this.state.perpage),
                         loaded: true
                     }, ()=>{
                         
@@ -144,7 +145,17 @@ class ViewArticle extends Component{
                             <div>
                                 <h5>{article.Title}</h5>
                                 <div>{article.Summary}</div>
-                                <Link to={{pathname:'/article/'  +article.id+'/'+article.Title, state:{article:things}}}> Go </Link>
+                                <Link to={{pathname:'/article/'  +article.id+'/'+article.Title, state:{article:things}}}> Go </Link><br />
+                                {
+                                    firebase.auth().currentUser.uid==article.Author?
+
+                                    <Link to={{pathname:'/iJ6hjvpfuivhi0pioubxjovbbdYVyfgv/edit-article' , state:{
+                                        article:article
+                                        
+                                    }}}> Edit </Link>
+                                    :''
+
+                                }
                                 <hr/>
                             </div>
                         )
