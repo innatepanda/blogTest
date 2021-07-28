@@ -129,7 +129,7 @@ class ViewArticle extends Component{
                 
                 <YouTubePlayer  url={a.Youtube}/>
       
-                <div>{parse(a.Title)}</div>
+                <div><b>{parse(a.Title)}</b></div>
                 
                 {
                     

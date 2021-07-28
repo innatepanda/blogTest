@@ -95,7 +95,7 @@ class AllArticles extends Component{
                     <Link to={{pathname:'/article/'  +article.id+'/'+article.Title, state:{article:article}}}> Go </Link><br />
                     
                     {
-                                   firebase.auth().currentUser!==null? firebase.auth().currentUser.uid==article.Author?
+                                   firebase.auth().currentUser!==null? firebase.auth().currentUser.uid===article.Author?
 
                                     <Link to={{pathname:'/iJ6hjvpfuivhi0pioubxjovbbdYVyfgv/edit-article' , state:{
                                         article:article

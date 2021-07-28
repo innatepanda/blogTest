@@ -1,7 +1,7 @@
 
 import React, {Component} from 'react'
 
-import {Container, Row, Col, FormGroup, Label, Input, Button} from 'reactstrap'
+import {Container, FormGroup, Label, Input, Button} from 'reactstrap'
 import ReactQuill from 'react-quill'
 import 'react-quill/dist/quill.snow.css'
 import firebase from 'firebase'
@@ -27,7 +27,8 @@ class NewArticle extends Component{
         this.state={
             article:props.location.state.article,
             sum:150-props.location.state.article.Summary.length,
-            t:20-props.location.state.article.Title.length
+            t:40-props.location.state.article.Title.length,
+            showmodal:props.showmodal,
         }
         
     }
@@ -84,7 +85,7 @@ class NewArticle extends Component{
         
         this.setState({
             //t:this.state.t-(value.length-this.state.Title.length)
-            t:20-value.length
+            t:40-value.length
             
         })
           this.setState({
@@ -162,12 +163,19 @@ class NewArticle extends Component{
 
         ).then(
             res=>{
-
+                this.props.history.push('/article/'+this.state.article.id+'/'+this.state.article.Title)
                 console.log(res)
 
             }
-        ).catch(err=>console.log(err))
-        this.props.history.push('/article/'+this.state.article.id+'/'+this.state.article.Title)
+        ).catch(error=>{
+            var pr={
+                open:true,
+                msg:error.message,
+                color:'red'
+            }
+            this.state.showmodal(pr);
+        })
+        
 
 
     }
@@ -181,7 +189,7 @@ class NewArticle extends Component{
                             <h2>Edit Article</h2>
                             <FormGroup>
                                 <Label>Title</Label>
-                                <Input type='text' name='newtitle' id='newtitle' maxlength="20"
+                                <Input type='text' name='newtitle' id='newtitle' maxlength="40"
                                 onChange={(el)=>this.onChangeTitle(el.target.value) }
                                 value={this.state.article.Title}/>
                                 {this.state.t}

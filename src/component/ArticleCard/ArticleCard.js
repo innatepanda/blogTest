@@ -2,11 +2,11 @@ import React, { Component } from 'react'
 import {Card} from 'reactstrap'
 import {Link} from 'react-router-dom'
 import classes from './ArticleCard.module.css'
-import firebase from '../../../src/component/Config/firebase'
 
 
 
-const db=firebase.firestore();
+
+
 let p
 
   
@@ -61,16 +61,7 @@ class ArticleCard extends Component{
                     </h6>
                     <Link to={{pathname:'/article/'  +this.state.things.id+'/'+this.state.things.Title, state:{article:this.state.things}}}> Go </Link>
                     
-                    {
-                                    this.state.things.auth.uid==this.state.things.Author?
-
-                                    <Link to={{pathname:'/iJ6hjvpfuivhi0pioubxjovbbdYVyfgv/edit-article' , state:{
-                                        article:this.state.things
-                                        
-                                    }}}> Edit </Link>
-                                    :''
-
-                                }
+                  
                
                 
 

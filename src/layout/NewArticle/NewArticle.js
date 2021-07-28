@@ -1,6 +1,6 @@
 
 import React, {Component} from 'react'
-import {Container, Row, Col, FormGroup, Label, Input, Button} from 'reactstrap'
+import {Container, FormGroup, Label, Input, Button} from 'reactstrap'
 import ReactQuill from 'react-quill'
 import 'react-quill/dist/quill.snow.css'
 import firebase from 'firebase'
@@ -31,12 +31,14 @@ class NewArticle extends Component{
                 Summary:'',
                 Category:'General',
                 Author:this.props.auth.uid,
+                AuthorName:firebase.auth().currentUser.displayName
                 
                 
 
             },
             sum:150,
-            t:20
+            t:40,
+            showmodal:props.showmodal,
         }
         
     }
@@ -93,7 +95,7 @@ class NewArticle extends Component{
         
         this.setState({
             //t:this.state.t-(value.length-this.state.Title.length)
-            t:20-value.length
+            t:40-value.length
             
         })
           this.setState({
@@ -161,12 +163,19 @@ class NewArticle extends Component{
         console.log(this.state.article)
         db.collection("posts").add(this.state.article).then(
             res=>{
-
-                console.log(res)
+                this.props.history.push('/article/'+res.id+'/'+this.state.article.Title)
+                console.log(res.id)
 
             }
-        ).catch(err=>console.log(err))
-        this.props.history.push('/')
+        ).catch(error=>{
+            var pr={
+                open:true,
+                msg:error.message,
+                color:'red'
+            }
+            this.state.showmodal(pr);
+        })
+        
 
 
     }
@@ -175,12 +184,11 @@ class NewArticle extends Component{
         return(
             <div>
                 <Container>
-                    <Row>
-                        <Col xl={9} lg={9} md={8} sm={12} xs={12}>
+                   
                             <h2>Create New</h2>
                             <FormGroup>
                                 <Label>Title</Label>
-                                <Input type='text' name='newtitle' id='newtitle' maxlength="20"
+                                <Input type='text' name='newtitle' id='newtitle' maxlength="40"
                                 onChange={(el)=>this.onChangeTitle(el.target.value) }
                                 value={this.state.article.Title}/>
                                 {this.state.t}
@@ -226,12 +234,10 @@ class NewArticle extends Component{
                                 Note: first code is codeblock next is inline code
                             </FormGroup>
 
-                        </Col>
-                        <Col xl={3} lg={3} md={8} sm={12} xs={12}>
+                       
                             
-                            <Button onClick={(e)=>this.submitArticle()}>Click me</Button>
-                        </Col>
-                    </Row>
+                            <Button onClick={(e)=>this.submitArticle()}>Create article</Button>
+                        
                 </Container>
             </div>
         )

@@ -76,7 +76,7 @@ class ViewArticle extends Component{
                         var n=this.state.author.name
                         docs.forEach(function(doc){
                             
-                            if(doc.data().Author==id)
+                            if(doc.data().Author===id)
                             {
                                 const article={
                                     id:doc.id,
@@ -145,7 +145,7 @@ class ViewArticle extends Component{
                                 <Link to={{pathname:'/article/'  +article.id+'/'+article.Title, state:{article:article}}}> Go </Link><br />
                                 {
                                     firebase.auth().currentUser!==null?
-                                    firebase.auth().currentUser.uid==article.Author?
+                                    firebase.auth().currentUser.uid===article.Author?
 
                                     <Link to={{pathname:'/iJ6hjvpfuivhi0pioubxjovbbdYVyfgv/edit-article' , state:{
                                         article:article

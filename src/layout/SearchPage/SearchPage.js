@@ -1,20 +1,19 @@
 import React, {Component} from 'react'
 import {Container} from 'reactstrap'
-import {Link} from 'react-router-dom'
+
 import firebase from "../../component/Config/firebase"
-/*import {button} from 'reactstrap'
-import {Link} from 'react-router-dom'
-*/
+
+
 const db=firebase.firestore();
 var thispageArticles;
-var s
+
 var isLoaded=false
                 var articles=[]
                 
                 var perpage=3
                var  maxpgs=0
                 var pg=0
-                var searchkeyword=''
+                
 class SearchPage extends Component{
  
     constructor(props)
@@ -95,7 +94,7 @@ class SearchPage extends Component{
         thispageArticles= articles.slice(firstIndex, lastIndex);
         console.log(thispageArticles)
         console.log(isLoaded)
-        if(articles.length==0&&isLoaded)
+        if(articles.length===0&&isLoaded)
         {
             return(
                 <div>
