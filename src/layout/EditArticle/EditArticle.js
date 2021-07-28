@@ -176,8 +176,8 @@ class NewArticle extends Component{
         return(
             <div>
                 <Container>
-                    <Row>
-                        <Col xl={9} lg={9} md={8} sm={12} xs={12}>
+                    
+                        
                             <h2>Edit Article</h2>
                             <FormGroup>
                                 <Label>Title</Label>
@@ -227,12 +227,10 @@ class NewArticle extends Component{
                                 Note: first code is codeblock next is inline code
                             </FormGroup>
 
-                        </Col>
-                        <Col xl={3} lg={3} md={8} sm={12} xs={12}>
+                        
                             
-                            <Button onClick={(e)=>this.submitArticle()}>Click me</Button>
-                        </Col>
-                    </Row>
+                            <Button onClick={(e)=>this.submitArticle()}>Save</Button>
+                        
                 </Container>
             </div>
         )

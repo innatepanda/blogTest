@@ -31,7 +31,9 @@ const db=firebase.firestore();
                   console.log(doc.data().name)
                   this.setState({
 
-                    name:doc.data().name
+                    name:doc.data().name,
+                    searchword:'',
+                    
                       
                   })
 
@@ -51,7 +53,8 @@ const db=firebase.firestore();
               this.state={
                 display:props.auth.email,
                 name:'',
-                open:false
+                open:false,
+                searchfunc:props.searchword
               
               }
               console.log(props)
@@ -70,6 +73,13 @@ const db=firebase.firestore();
               
             }
 
+            onChangeSearch(el){
+              this.setState({
+                searchword:el
+              }, ()=>{
+
+              })
+            }
             render()
             {
               
@@ -90,9 +100,20 @@ const db=firebase.firestore();
                       
                         <UncontrolledDropdown nav inNavbar>
                           <DropdownToggle nav caret>
-                            Options
+                          {!this.props.auth.isEmpty?firebase.auth().currentUser.displayName:'Options'}
                           </DropdownToggle>
                           <DropdownMenu right>
+                          {this.props.auth.isEmpty?
+                        ' ': 
+                          <DropdownItem>
+                          <Link to={{pathname:'/change-settings', state:{profile:this.props.auth}}}>
+                                  Profile Settings
+                                </Link>
+                        </DropdownItem>
+                        
+                        
+                      }
+                      <DropdownItem divider />
                           {          
                               
                               this.props.auth.isEmpty?
@@ -117,26 +138,30 @@ const db=firebase.firestore();
                               </Button>
                           </DropdownItem>
                         } 
-                            {this.props.auth.isEmpty?
-                        ' ': 
-                          <DropdownItem>
-                          <Link to={{pathname:'/change-settings', state:{profile:this.props.auth}}}>
-                                  Profile Settings
-                                </Link>
-                        </DropdownItem>
+                            
                         
-                      }
-                        
-                            <DropdownItem divider />
-                            <DropdownItem>
-                              Reset
-                            </DropdownItem>
+                            
+                          
                           </DropdownMenu>
                         </UncontrolledDropdown>
                       </Nav>
-                      <NavbarText>{this.state.name}</NavbarText>
+                      
                     </Collapse>
+                    <input type='text' name='inp' id='inp' 
+                                onChange={(el)=>{this.onChangeSearch(el.target.value)} }
+                                />
+                                
+                                  
+                                
+                                    <button onClick={async ()=>{
+                                      await this.state.searchfunc(this.state.searchword)
+                                      this.props.history.push('/searchpage/'+this.state.searchword )
+                                    }}>search</button>
+                                
+                                
+                                
                   </Navbar>
+                  
                 </div>
               )
             }

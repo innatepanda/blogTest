@@ -108,7 +108,7 @@ class ViewArticle extends Component{
             return(
             <div>
                 {
-                    this.state.auth.uid===this.state.article.Author?
+                   firebase.auth().currentUser!==null?firebase.auth().currentUser.uid===this.state.article.Author?
                     <div>
                             <Link to={{pathname:'/iJ6hjvpfuivhi0pioubxjovbbdYVyfgv/edit-article' , state:{article:this.state.article}}}> Edit </Link>
                             <button onClick={()=>{
@@ -122,6 +122,7 @@ class ViewArticle extends Component{
                     </div>
             
                     
+                    :''
                     :''
 
                 }

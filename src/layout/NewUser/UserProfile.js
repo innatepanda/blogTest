@@ -121,6 +121,7 @@ class ViewArticle extends Component{
         var lastIndex=firstIndex+this.state.perpage;
         thispageArticles=this.state.articles.slice(firstIndex, lastIndex);
         
+        
            return(
             <div>
                 
@@ -135,24 +136,22 @@ class ViewArticle extends Component{
                 {  
                                       
                     thispageArticles.map(( article)=>{
-                        var things={
-                            
-                            auth :this.state.auth,
-                            ...article
-
-                        }
+                        
+                        
                         return (
                             <div>
                                 <h5>{article.Title}</h5>
                                 <div>{article.Summary}</div>
-                                <Link to={{pathname:'/article/'  +article.id+'/'+article.Title, state:{article:things}}}> Go </Link><br />
+                                <Link to={{pathname:'/article/'  +article.id+'/'+article.Title, state:{article:article}}}> Go </Link><br />
                                 {
+                                    firebase.auth().currentUser!==null?
                                     firebase.auth().currentUser.uid==article.Author?
 
                                     <Link to={{pathname:'/iJ6hjvpfuivhi0pioubxjovbbdYVyfgv/edit-article' , state:{
                                         article:article
                                         
                                     }}}> Edit </Link>
+                                    :''
                                     :''
 
                                 }

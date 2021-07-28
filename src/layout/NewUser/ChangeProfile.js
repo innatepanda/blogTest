@@ -19,12 +19,12 @@ Quill.register('modules/imageResize', ImageResize);*/
 
 
 
-var newPassword;
+var newPassword; var pr;
 const db=firebase.firestore();
 class ChangeProfile extends Component{
     constructor(props){
         super(props);
-        console.log(props)
+        
         this.state={
             auth: props.auth,
             user:{
@@ -33,7 +33,8 @@ class ChangeProfile extends Component{
                 desc:"",
                 github:"",
             },
-            actualuser:firebase.auth().currentUser
+            actualuser:firebase.auth().currentUser,
+            showmodal:props.showmodal,
         }
         
     }
@@ -139,29 +140,72 @@ class ChangeProfile extends Component{
         }
 
         ).then((res)=>{
-            this.state.actualuser.updateEmail(this.state.user.email).then(() => {
+            this.state.actualuser.updateProfile({
+                displayName: this.state.user.name,
+                
+              }).then(() => {
                 // Update successful
+                this.props.history.push('/user-profile/'+this.state.auth.uid+'/'+this.state.user.name)
                 // ...
               }).catch((error) => {
                 // An error occurred
                 // ...
-              })
-              this.state.actualuser.updatePassword(newPassword).then(() => {
-                // Update successful.
-                console.log("pw")
-              }).catch((error) => {
-                // An error ocurred
-                // ...
-              })
+
+                pr={
+                    open:true,
+                    msg:error.message,
+                    color:'red'
+                }
+                this.state.showmodal(pr);
+              });  
+            
+        }
+        ).catch(error=>{
+            pr={
+                open:true,
+                msg:error.message,
+                color:'red'
+            }
+            this.state.showmodal(pr);
+        })
+        
+
+
+    }
+    submitpw(){
+        
+        this.state.actualuser.updateEmail(this.state.user.email).then(() => {
+            // Update successful
+            // ...
+          }).catch((error) => {
+            // An error occurred
+            // ...
+            pr={
+                open:true,
+                msg:error.message,
+                color:'red'
+            }
+            this.state.showmodal(pr);
+          })
+          this.state.actualuser.updatePassword(newPassword).then(() => {
+            // Update successful.
+            
+            newPassword=''
+          }).catch((error) => {
+            // An error ocurred
+            // ...
+            pr={
+                open:true,
+                msg:error.message,
+                color:'red'
+            }
+            this.state.showmodal(pr);
+          })
+        
+
             
 
-                console.log(res)
-
-            }
-        ).catch(err=>console.log(err))
-        this.props.history.push('/user-profile/'+this.state.auth.uid+'/'+this.state.user.name)
-
-
+        
     }
 componentDidMount(){
     db.collection("users").doc(this.state.auth.uid).get().then(
@@ -173,11 +217,18 @@ componentDidMount(){
                 desc:doc.data().desc,
                 github:doc.data().github,
             }
+        }).catch(error=>{
+            pr={
+                open:true,
+                msg:error.message,
+                color:'red'
+            }
+            this.state.showmodal(pr);
         })
         })
         
     
-    console.log(this.state.user)
+    
 }
     render(){
         return(
@@ -193,13 +244,7 @@ componentDidMount(){
                                 value={this.state.user.name}/>
                                 {this.state.t}
                             </FormGroup>
-                            <FormGroup>
-                                <Label>Email</Label>
-                                <Input type='text' name='newEmail' id='newEmail'
-                                onChange={(el)=>this.onChangeat(el.target.value)}
-                                value={this.state.user.email}/>
-                                
-                            </FormGroup>
+                            
                             
                             
                             <FormGroup>
@@ -224,15 +269,26 @@ componentDidMount(){
                                 <br />
                                 
                             </FormGroup>
+                            <Button onClick={(e)=>this.submitArticle()}>Save profile</Button>
+                            <br />
+                            <br />
                             <FormGroup>
-                                <Label>Change Password:</Label>
-                             <Input id="input-field" type="password" onChange={(e)=>{newPassword=e.target.value}} /><br />
+                                <Label>Email</Label>
+                                <Input type='text' name='newEmail' id='newEmail'
+                                onChange={(el)=>this.onChangeat(el.target.value)}
+                                value={this.state.user.email}/>
+                                
                             </FormGroup>
-
+                            <FormGroup>
+                            
+                                <Label>Change Password:</Label>
+                             <Input id="input-field" type="password"  onChange={(e)=>{newPassword=e.target.value}} />A user can request for reset password a maximum of 3 times within 1 hour.<br />
+                            </FormGroup>
+                            
                         </div>
                         <div >
                             
-                            <Button onClick={(e)=>this.submitArticle()}>Save Changes</Button>
+                            <Button onClick={(e)=>this.submitpw()}>Confirm Changes</Button>
                         </div>
                     </div>
                 </Container>
