@@ -15,7 +15,7 @@ import {
   DropdownToggle,
   DropdownMenu,
   DropdownItem,
-  NavbarText, Button
+  Button
 } from 'reactstrap';
 
 const db=firebase.firestore();

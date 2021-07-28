@@ -25,7 +25,7 @@ class SearchPage extends Component{
             this.state={
                 pg:0
             }
-                
+            
 
             
         console.log(props)
@@ -35,6 +35,10 @@ class SearchPage extends Component{
         var yyyy = this.today.getFullYear();
 
         this.today = yyyy + '-' + mm + '-' + dd;
+        var st=props.word
+        
+            thispageArticles=[{title:"abc"},];
+            this.getArt(st)
         
     }
 
