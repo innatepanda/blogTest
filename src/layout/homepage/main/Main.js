@@ -3,7 +3,7 @@ import React, {Component} from 'react'
 import firebase from "../../../component/Config/firebase"
 
 
-import {Link} from 'react-router-dom'
+
 
 const db=firebase.firestore();
 

@@ -1,7 +1,7 @@
 {
   "name": "finaltest",
   "version": "0.1.0",
-  "homepage": "http://innatepanda.github.io/blogTest",
+  "homepage": "https://innatepanda.github.io/blogTest/",
   "private": true,
   "dependencies": {
     "@testing-library/jest-dom": "^5.11.4",
