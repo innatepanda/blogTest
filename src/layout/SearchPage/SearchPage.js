@@ -5,14 +5,12 @@ import firebase from "../../component/Config/firebase"
 import './searchpage.css'
 
 const db=firebase.firestore();
-var thispageArticles;
+
 
 var isLoaded=false
-                var articles=[]
+var articles=[]
                 
-                var perpage=3
-               var  maxpgs=0
-                var pg=0
+                
                 
 class SearchPage extends Component{
  
@@ -36,7 +34,7 @@ class SearchPage extends Component{
         this.today = yyyy + '-' + mm + '-' + dd;
         var st=props.word
         
-            thispageArticles=[{title:"abc"},];
+            
             this.getArt(st)
         
     }
@@ -46,7 +44,7 @@ class SearchPage extends Component{
         
         var st=this.props.word
         
-        thispageArticles=[{title:"abc"},];
+        
         this.getArt(st)
         
     }
@@ -79,7 +77,7 @@ class SearchPage extends Component{
                 })
                 
                     articles=art
-                    maxpgs=Math.ceil(art.length/ perpage)
+                    
                 
                         isLoaded= true
                         
@@ -89,11 +87,7 @@ class SearchPage extends Component{
         }
     render(){
         
-        var firstIndex= pg* perpage;
-        var lastIndex=firstIndex+ perpage;
-        thispageArticles= articles.slice(firstIndex, lastIndex);
-        console.log(thispageArticles)
-        console.log(isLoaded)
+        
         if(articles.length===0&&isLoaded)
         {
             return(
@@ -103,32 +97,41 @@ class SearchPage extends Component{
                 </div>
             )
         }
-        
+        if(isLoaded==false)
+        {
+            return(
+                <div className="error-div small-text-purple">
+                   loading..
+               </div>
+            )
+        }
         
         return(
             <div>
                 <div className="edit-main">
                 <div className="ribbon-long"></div>
                 <div>
-                                <div className="article-title"><b>Search results</b></div>
+                                <div className="article-title"><b>Search results</b></div><br /><br />
 
                                 {  
                                     isLoaded?                     
-                                thispageArticles.map((article, index)=>{
-                                    console.log(article.id)
+                                articles.map((article, index)=>{
+                                    
                                     return (
-                                        <div>
+                                        <div className="each-article">
+                                            <div className="side-number">{index+1}</div>
                                                 <div >
                                 
                                 
                                 <h5 >
                                     {article.Title}
                                 </h5>
+                                
                                 <hr />
-                                    {article.Category}
+                                <div className="small-text-purple">{article.Category}</div>
                                 <h6>
-                                <b>{article.Created.split("-")[2]}-{article.Created.split("-")[1]}-{article.Created.split("-")[0]}</b> by <b>{article.AuthorName}</b>
-                                    <p>
+                                by <b>{article.AuthorName}</b>
+                                    <p className="small-text">
                                     {article.Summary}
                                     </p>
 
@@ -136,47 +139,19 @@ class SearchPage extends Component{
                                 
                                             <button onClick={()=>{
                                                 this.props.history.push('/article/'  +article.id+'/'+article.Title)
-                                            }}>go</button>
+                                            }}>Read More</button>
 
 
 
                                 </div>
-                                        <hr />    
+                                        
                                         </div>
                                         
                                         
                                     )
                                 }) :" "
                                 }  
-                                <div className="btns">
-                                {
-                                        pg===0?
-                                    <button color="info" className="button" disabled>prev</button>:
-                                    <button color="info" className="button" onClick={()=>{
-                                        this.setState({
-                                        pg: pg-1
-                                        }, ()=>{
-                                            
-                                        //window.history.replaceState(thispageArticles, "Articles", "/Articles/"+( pg+1))
-                                            pg=pg-1
-                                        })
-                                    }}>prev</button>
-                                    }
-                                    pg-{ pg+1}
-                                    {
-                                        pg=== maxpgs-1 ?
-                                    <button color="info" disabled className="button">next</button>:
-                                    <button color="info" className="button" onClick={()=>{
-                                        this.setState({
-                                        pg: pg+1
-                                        }, ()=>{
-                                        //window.history.replaceState(thispageArticles, "Articles", "/Articles/"+( pg+1))
-                                        pg=pg+1
-                                        })
-                                    }}>next</button>
-                                    }
-
-                                </div>
+                                
 
 
                 </div>

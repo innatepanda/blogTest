@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import {Container,FormGroup, Label, Input, Button} from 'reactstrap'
+import {FormGroup, Label} from 'reactstrap'
 import firebase from '../../component/Config/firebase'
 
 //import  { Redirect } from 'react-router-dom'
@@ -82,25 +82,37 @@ class Login extends Component{
     render(){
         
         return(
-            <Container>
-               <FormGroup>
+            <div>
+                <div className="settings-main">
+                <div className="article-title"><b>Members area</b></div><br />
+                <div>
+                            <FormGroup className="edit-field">
                                 <Label>Email</Label>
-                                <Input type='text' name='newem' id='newem'
+                                <input type='text' name='newem' id='newem'
                                 onChange={(el)=>this.onChangeEm(el.target.value)}
                                 value={this.state.res.email}/>
                                 
                             </FormGroup>
-                            <FormGroup>
+                            <FormGroup className="edit-field">
                                 <Label>Pw</Label>
-                                <Input type='password' name='newpw' id='newpw'
+                                <input type='password' name='newpw' id='newpw'
                                 onChange={(el)=>this.onChangePw(el.target.value)}
                                 value={this.state.res.password}/>
                                 
                             </FormGroup>
-                            <Button onClick={(e)=>this.submitEm()}>Login</Button>
-                            <Button onClick={(e)=>this.resetPw()}>Reset pw</Button>
+                            <div className="edit-btn">
+                            <button  onClick={(e)=>this.submitEm()}>Login</button>
+                            <button  onClick={(e)=>this.resetPw()}>Reset pw</button>
+
+                            </div>
+                            
+
+                </div>
+                
+                </div>
+               
             
-            </Container>
+            </div>
         )
     }
 }

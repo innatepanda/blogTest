@@ -123,7 +123,7 @@ class ViewArticle extends Component{
                 <div>
                 <div className="article-title"><b>{parse(a.Title)}</b></div>
                 <div className="article-author">
-                <span className="small-text">{a.Created}, by </span>
+                <span className="small-text">{a.Created.split("-")[2]}-{a.Created.split("-")[1]}-{a.Created.split("-")[0]}, by </span>
                 {
                     
                     <Link className="article-author" to={{pathname:'/user-profile/'+this.state.article.Author+'/'+art.artauth.name +'/', state:{author: art}}}> {art.artauth.name} </Link>
@@ -184,7 +184,7 @@ class ViewArticle extends Component{
        }
        else{
            return(
-               <div>
+               <div className="error-div small-text-purple">
                    loading..
                </div>
            )
