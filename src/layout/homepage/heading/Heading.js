@@ -100,29 +100,29 @@ const db=firebase.firestore();
                           <DropdownToggle nav caret>
                           {!this.props.auth.isEmpty?firebase.auth().currentUser.displayName:'Options'}
                           </DropdownToggle>
-                          <DropdownMenu right>
+                          <DropdownMenu right className="dropdown">
                           {this.props.auth.isEmpty?
                         ' ': 
-                          <DropdownItem>
+                          
                            
                           <button className="btn-none" href='/iJ6hjvpfuivhi0pvikbshvYVyfgv/new-article'>New Article</button>
                           
                           
                                 
-                        </DropdownItem>
+
                         
                         
                       }
                          {this.props.auth.isEmpty?
                         ' ': 
-                          <DropdownItem>
+                          
                            
                          
                           
                           <button className="btn-none" href='/change-settings'>Profile Settings
                                 </button>
                                 
-                        </DropdownItem>
+
                         
                         
                       }
@@ -130,13 +130,13 @@ const db=firebase.firestore();
                           {          
                               
                               this.props.auth.isEmpty?
-                              <DropdownItem>
+                              
                                 <button href='/login'>
                                   Login
                                 </button>
                               
-                            </DropdownItem>
-                            : <DropdownItem>
+                            
+                            : 
                               <button className="btn-none" onClick={()=>
                                 {firebase.auth().signOut()
                                 this.setState({
@@ -149,7 +149,7 @@ const db=firebase.firestore();
                                 } href="/">
                                 Logout
                               </button>
-                          </DropdownItem>
+
                         } 
                             
                         

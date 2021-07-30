@@ -20,5 +20,18 @@
 }
 .search-bar button svg{
     margin-top:-16px;
-    margin-left:-16px;
+    
+}
+.header .btn-none{
+    color:var(--black);
+    text-align:left;
+    width:93%;
+    
+}
+.dropdown .btn-none:hover{
+    color:var(--purple);
+    background-color: rgb(231, 231, 231);
+    
+    
+    
 }

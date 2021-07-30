@@ -71,6 +71,9 @@ p img{
 .btn-none{
     background: none;
 }
+.btn-none:hover{
+    background: none;
+}
 svg{
     color:var(--lightpurple);
 }
