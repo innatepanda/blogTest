@@ -6,7 +6,14 @@ import {withRouter} from 'react-router-dom'
 import firebase from '../../../src/component/Config/firebase'
 import YouTubePlayer from 'react-player/youtube';
 import {Link} from 'react-router-dom'
-
+import PenFill from '../../resources/pen-fill.svg'
+import './viewarticle.css'
+const opts = {
+    width: '90px',
+    
+    
+    
+  };
 const db=firebase.firestore();
 class ViewArticle extends Component{
     constructor(props){
@@ -104,21 +111,60 @@ class ViewArticle extends Component{
         }
         console.log(art)
         var a=this.state.article
-        
+        console.log(a)
             return(
-            <div>
+            <div className="article">
+                
+                <div >
+                <div className="ribbon-long"></div>
+                </div>
+
+                
+                <div>
+                <div className="article-title"><b>{parse(a.Title)}</b></div>
+                <div className="article-author">
+                <span className="small-text">{a.Created}, by </span>
+                {
+                    
+                    <Link className="article-author" to={{pathname:'/user-profile/'+this.state.article.Author+'/'+art.artauth.name +'/', state:{author: art}}}> {art.artauth.name} </Link>
+                
+               
+
+                } 
+                </div>
+                
+                
+                <div class="video-player">
+                <YouTubePlayer  url={a.Youtube} opts={opts} />            
+                </div>
+
+                <div className="article-content">{parse(a.Content)}</div>
+                </div>
+
+
+                <div>
+                <div className="ribbon-long"></div><br />
                 {
                    firebase.auth().currentUser!==null?firebase.auth().currentUser.uid===this.state.article.Author?
                     <div>
-                            <Link to={{pathname:'/iJ6hjvpfuivhi0pioubxjovbbdYVyfgv/edit-article' , state:{article:this.state.article}}}> Edit </Link>
-                            <button onClick={()=>{
+                            <Link to={{pathname:'/iJ6hjvpfuivhi0pioubxjovbbdYVyfgv/edit-article' , state:{article:this.state.article}}}> 
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pen-fill" viewBox="0 0 16 16">
+                            <path d="m13.498.795.149-.149a1.207 1.207 0 1 1 1.707 1.708l-.149.148a1.5 1.5 0 0 1-.059 2.059L4.854 14.854a.5.5 0 0 1-.233.131l-4 1a.5.5 0 0 1-.606-.606l1-4a.5.5 0 0 1 .131-.232l9.642-9.642a.5.5 0 0 0-.642.056L6.854 4.854a.5.5 0 1 1-.708-.708L9.44.854A1.5 1.5 0 0 1 11.5.796a1.5 1.5 0 0 1 1.998-.001z"/>
+                            </svg>
+                            
+                            
+                            
+                            </Link>
+                            <button className="btn-none" onClick={()=>{
                                 db.collection("posts").doc(this.state.article.id).delete().then(() => {
                                     console.log("Document successfully deleted!");
                                     this.props.history.push("/")
                                 }).catch((error) => {
                                     console.error("Error removing document: ", error);
                                 });
-                            }}>delete</button>
+                            }}><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash-fill" viewBox="0 0 16 16">
+                            <path d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0z"/>
+                          </svg></button>
                     </div>
             
                     
@@ -126,23 +172,14 @@ class ViewArticle extends Component{
                     :''
 
                 }
-                
-                <YouTubePlayer  url={a.Youtube}/>
       
-                <div><b>{parse(a.Title)}</b></div>
+                </div>
                 
-                {
-                    
-                        <Link to={{pathname:'/user-profile/'+this.state.article.Author+'/'+art.artauth.name +'/', state:{author: art}}}> {art.artauth.name} </Link>
-                    
-                   
-
-                }
                 
-                {parse(a.Content)}
                 
                 
             </div>
+            
         )
        }
        else{

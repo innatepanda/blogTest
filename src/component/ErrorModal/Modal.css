@@ -9,7 +9,7 @@
      
      top: 0;
      width:60%;
-     left:30%;
+     
      
      
     
@@ -45,6 +45,6 @@
      from {top: -300px; opacity: 0} 
      to {top: 0; opacity: 1}
    }
-   
+  
  
  

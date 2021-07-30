@@ -1,9 +1,10 @@
 
 import React, {Component} from 'react'
-import {Container, FormGroup, Label, Input, Button} from 'reactstrap'
+import {Container, FormGroup, Label, input, Button} from 'reactstrap'
 import ReactQuill from 'react-quill'
 import 'react-quill/dist/quill.snow.css'
 import firebase from 'firebase'
+import './modifyarticle.css'
 //import Compressor from 'compressorjs'
 /*import Quill from 'quill';
 
@@ -37,27 +38,28 @@ class NewArticle extends Component{
 
             },
             sum:150,
-            t:40,
+            t:50,
             showmodal:props.showmodal,
         }
         
     }
     toolbarOptions = [
-        ['bold', 'italic', 'underline', 'strike'],        // toggled buttons
-        ['blockquote', 'code-block', 'code'],
+        ['bold', 'italic', 'underline', 'strike', 'blockquote', 'code-block', 'code'],        // toggled buttons
+        
       
         [{ 'header': 1 }, { 'header': 2 }],               // custom button values
         [{ 'list': 'ordered'}, { 'list': 'bullet' }],
         [{ 'script': 'sub'}, { 'script': 'super' }],      // superscript/subscript
+                             // text direction
+      
+        [{ 'size': ['small', false, 'large', 'huge'] , 'header': [1, 2, 3, 4, 5, 6] }],  // custom dropdown
+        
+      
+                  // dropdown with defaults from theme
+        [{ 'font': [] , 'align': []}],
+        [{ 'color': [] }, { 'background': [] }],
         [{ 'indent': '-1'}, { 'indent': '+1' }],          // outdent/indent
-        [{ 'direction': 'rtl' }],                         // text direction
-      
-        [{ 'size': ['small', false, 'large', 'huge'] }],  // custom dropdown
-        [{ 'header': [1, 2, 3, 4, 5, 6, false] }],
-      
-        [{ 'color': [] }, { 'background': [] }],          // dropdown with defaults from theme
-        [{ 'font': [] }],
-        [{ 'align': [] }],
+        [{ 'direction': 'rtl' }],    
         ['link', 'image'],  
         ['clean'],
                                           // remove formatting button
@@ -95,7 +97,7 @@ class NewArticle extends Component{
         
         this.setState({
             //t:this.state.t-(value.length-this.state.Title.length)
-            t:40-value.length
+            t:50-value.length
             
         })
           this.setState({
@@ -183,45 +185,50 @@ class NewArticle extends Component{
     render(){
         return(
             <div>
-                <Container>
-                   
-                            <h2>Create New</h2>
-                            <FormGroup>
-                                <Label>Title</Label>
-                                <Input type='text' name='newtitle' id='newtitle' maxlength="40"
+                <div className="edit-main">
+                <div className="ribbon-long"></div>
+                
+                <div>
+                <div className="article-title"><b>Create New</b></div><br /><br />
+                <FormGroup className="edit-field">
+                                <Label className="edit-label">Title</Label>
+                                <input type='text' name='newtitle' id='newtitle' maxlength="50"
                                 onChange={(el)=>this.onChangeTitle(el.target.value) }
                                 value={this.state.article.Title}/>
-                                {this.state.t}
+                                <div className="small-text-purple">{this.state.t}/50</div>
                             </FormGroup>
-                            <FormGroup>
-                                <Label>Category</Label>
-                                <Input type='text' name='newcat' id='newcat'
+                            <FormGroup className="edit-field">
+                                <Label className="edit-label">Category</Label>
+                                <input type='text' name='newcat' id='newcat'
                                 onChange={(el)=>this.onChangeCat(el.target.value)}
                                 value={this.state.article.Category}/>
                                 
                             </FormGroup>
-                            <FormGroup>
-                                <Label>Date</Label>
-                                <Input type='date' name='newdate' id='newdate' 
+                            <FormGroup className="edit-field">
+                                <Label className="edit-label">Date</Label>
+                                <input type='date' name='newdate' id='newdate' 
                                 onChange={(el)=>this.onChangeDate(el.target.value)}
                                 value={this.state.article.Created}/>
                                 
                             </FormGroup>
-                            <FormGroup>
-                                <Label>Summary</Label>
-                                <Input type='text' name='newsum' id='newsum' maxlength="150"
+                            <FormGroup className="edit-field">
+                                <Label className="edit-label">Summary</Label>
+                                <input type='text' name='newsum' id='newsum' maxlength="150"
                                 onChange={(el)=>this.onChangeSum(el.target.value)}
                                 value={this.state.article.Summary}/>
-                                {this.state.sum}
+                                <div className="small-text-purple">{this.state.sum}/150</div>
+                                
                             </FormGroup>
-                            <FormGroup>
-                                <Label>Youtube Link</Label>
-                                <Input type='text' name='newyt' id='newyt'
+                            <FormGroup className="edit-field">
+                                <Label className="edit-label">Youtube Link</Label>
+                                <input type='text' name='newyt' id='newyt'
                                 onChange={(el)=>this.onChangeYt(el.target.value)}
                                 value={this.state.article.Youtube}/>
                                 
                             </FormGroup>
-                            <FormGroup>
+                            <FormGroup className="edit-field">
+                                <Label className="edit-label">Content</Label>
+                                <div className="reactquill-bg">
                                 <ReactQuill 
                                 ref={(el)=>this.quill=el}
                                 value={this.state.article.Content}
@@ -230,15 +237,23 @@ class NewArticle extends Component{
                                 formats={this.formats}
                                 modules={this.modules}
                                 />
-                                Note: select text then click on link, select text then click on clean format (tx sorta symbol)
-                                Note: first code is codeblock next is inline code
+                                 
+                                </div>
+                               
+                               
                             </FormGroup>
+                            Note: select text then click on link, select text then click on clean format (tx sorta symbol)
+                             <br />   Note: first code is codeblock next is inline code
 
                        
+                            <div><button className="edit-btn" onClick={(e)=>this.submitArticle()}>Create article</button></div>
+                    </div>
+                
+                
                             
-                            <Button onClick={(e)=>this.submitArticle()}>Create article</Button>
+                            
                         
-                </Container>
+                </div>
             </div>
         )
     }

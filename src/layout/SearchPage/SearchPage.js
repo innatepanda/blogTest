@@ -1,8 +1,8 @@
 import React, {Component} from 'react'
-import {Container} from 'reactstrap'
+
 
 import firebase from "../../component/Config/firebase"
-
+import './searchpage.css'
 
 const db=firebase.firestore();
 var thispageArticles;
@@ -97,82 +97,91 @@ class SearchPage extends Component{
         if(articles.length===0&&isLoaded)
         {
             return(
-                <div>
-                    no matching searches
+                <div className="error-div">
+                    <div className="small-text-purple">no matching searches</div>
+                    please try again
                 </div>
             )
         }
         
+        
         return(
             <div>
-                <Container>
-                 {  
-                     isLoaded?                     
-                    thispageArticles.map((article, index)=>{
-                       console.log(article.id)
-                        return (
-                            <div>
-                                  <div >
-                    
-                    
-                    <h5 >
-                        {article.Title}
-                    </h5>
-                    <hr />
-                     {article.Category}
-                    <h6>
-                    <b>{article.Created.split("-")[2]}-{article.Created.split("-")[1]}-{article.Created.split("-")[0]}</b> by <b>{article.AuthorName}</b>
-                        <p>
-                        {article.Summary}
-                        </p>
+                <div className="edit-main">
+                <div className="ribbon-long"></div>
+                <div>
+                                <div className="article-title"><b>Search results</b></div>
 
-                    </h6>
-                   
-                                <button onClick={()=>{
-                                    this.props.history.push('/article/'  +article.id+'/'+article.Title)
-                                }}>go</button>
-               
-                
-
-                </div>
-                            <hr />    
-                            </div>
-                            
-                           
-                        )
-                    }) :" "
-                }  
-                 <div className="btns">
-                    {
-                         pg===0?
-                        <button color="info" className="button" disabled>prev</button>:
-                        <button color="info" className="button" onClick={()=>{
-                            this.setState({
-                            pg: pg-1
-                            }, ()=>{
+                                {  
+                                    isLoaded?                     
+                                thispageArticles.map((article, index)=>{
+                                    console.log(article.id)
+                                    return (
+                                        <div>
+                                                <div >
                                 
-                            //window.history.replaceState(thispageArticles, "Articles", "/Articles/"+( pg+1))
-                                pg=pg-1
-                            })
-                        }}>prev</button>
-                        }
-                        pg-{ pg+1}
-                        {
-                         pg=== maxpgs-1 ?
-                        <button color="info" disabled className="button">next</button>:
-                        <button color="info" className="button" onClick={()=>{
-                            this.setState({
-                            pg: pg+1
-                            }, ()=>{
-                            //window.history.replaceState(thispageArticles, "Articles", "/Articles/"+( pg+1))
-                            pg=pg+1
-                            })
-                        }}>next</button>
-                        }
+                                
+                                <h5 >
+                                    {article.Title}
+                                </h5>
+                                <hr />
+                                    {article.Category}
+                                <h6>
+                                <b>{article.Created.split("-")[2]}-{article.Created.split("-")[1]}-{article.Created.split("-")[0]}</b> by <b>{article.AuthorName}</b>
+                                    <p>
+                                    {article.Summary}
+                                    </p>
+
+                                </h6>
+                                
+                                            <button onClick={()=>{
+                                                this.props.history.push('/article/'  +article.id+'/'+article.Title)
+                                            }}>go</button>
+
+
+
+                                </div>
+                                        <hr />    
+                                        </div>
+                                        
+                                        
+                                    )
+                                }) :" "
+                                }  
+                                <div className="btns">
+                                {
+                                        pg===0?
+                                    <button color="info" className="button" disabled>prev</button>:
+                                    <button color="info" className="button" onClick={()=>{
+                                        this.setState({
+                                        pg: pg-1
+                                        }, ()=>{
+                                            
+                                        //window.history.replaceState(thispageArticles, "Articles", "/Articles/"+( pg+1))
+                                            pg=pg-1
+                                        })
+                                    }}>prev</button>
+                                    }
+                                    pg-{ pg+1}
+                                    {
+                                        pg=== maxpgs-1 ?
+                                    <button color="info" disabled className="button">next</button>:
+                                    <button color="info" className="button" onClick={()=>{
+                                        this.setState({
+                                        pg: pg+1
+                                        }, ()=>{
+                                        //window.history.replaceState(thispageArticles, "Articles", "/Articles/"+( pg+1))
+                                        pg=pg+1
+                                        })
+                                    }}>next</button>
+                                    }
+
+                                </div>
+
 
                 </div>
-
-                </Container>
+                    
+                </div>
 
                 
             </div>

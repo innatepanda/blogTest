@@ -1,3 +1,14 @@
+:root{
+  --darkpurple: #5b3086;
+  --purple: #6F439C;
+  --lightpurple: #A081BD;
+  --plasticgreen: #9CE0D4;
+  --lightplasticgreen: #BDE4DF;
+  --black: black;
+  --white: white;
+ 
+ }
+
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
@@ -10,4 +21,23 @@ body {
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+    color: var(--lightpurple);
+}
+pre{
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+  color: var(--lightpurple);
+  margin-left:20%;
+}
+input{
+  width:100%;
+  
+  padding:5px;
+  box-shadow:none;
+  border:none;
+}
+.error-div{
+  font-size:3rem;
+  font-weight: bold;
+  padding-top:10%;
 }

@@ -1,10 +1,11 @@
 
 import React, {Component} from 'react'
 
-import {Container , FormGroup, Label, Input, Button} from 'reactstrap'
+import {FormGroup, Label, input, button} from 'reactstrap'
 import ReactQuill from 'react-quill'
 import 'react-quill/dist/quill.snow.css'
 import firebase from 'firebase'
+import './settings.css'
 //import Compressor from 'compressorjs'
 /*import Quill from 'quill';
 
@@ -39,21 +40,22 @@ class ChangeProfile extends Component{
         
     }
     toolbarOptions = [
-        ['bold', 'italic', 'underline', 'strike'],        // toggled buttons
-        ['blockquote', 'code-block', 'code'],
+        ['bold', 'italic', 'underline', 'strike', 'blockquote', 'code-block', 'code'],        // toggled buttons
+        
       
         [{ 'header': 1 }, { 'header': 2 }],               // custom button values
         [{ 'list': 'ordered'}, { 'list': 'bullet' }],
         [{ 'script': 'sub'}, { 'script': 'super' }],      // superscript/subscript
+                             // text direction
+      
+        [{ 'size': ['small', false, 'large', 'huge'] , 'header': [1, 2, 3, 4, 5, 6] }],  // custom dropdown
+        
+      
+                  // dropdown with defaults from theme
+        [{ 'font': [] , 'align': []}],
+        [{ 'color': [] }, { 'background': [] }],
         [{ 'indent': '-1'}, { 'indent': '+1' }],          // outdent/indent
-        [{ 'direction': 'rtl' }],                         // text direction
-      
-        [{ 'size': ['small', false, 'large', 'huge'] }],  // custom dropdown
-        [{ 'header': [1, 2, 3, 4, 5, 6, false] }],
-      
-        [{ 'color': [] }, { 'background': [] }],          // dropdown with defaults from theme
-        [{ 'font': [] }],
-        [{ 'align': [] }],
+        [{ 'direction': 'rtl' }],    
         ['link', 'image'],  
         ['clean'],
                                           // remove formatting button
@@ -217,6 +219,7 @@ componentDidMount(){
                 desc:doc.data().desc,
                 github:doc.data().github,
             }
+        })
         }).catch(error=>{
             pr={
                 open:true,
@@ -225,37 +228,42 @@ componentDidMount(){
             }
             this.state.showmodal(pr);
         })
-        })
         
     
     
 }
     render(){
         return(
-            <div>
-                <Container>
-                    <div>
-                        <div >
-                            <h2>Edit Profile</h2>
+            <div >
+                
+                    
+                        <div className="settings-main">
+                            <div className="settings-section">
+                                <div><h2>Edit<br/> Profile</h2></div>
+
+                                <div>
+                                
                             <FormGroup>
                                 <Label>Display Name</Label>
-                                <Input type='text' name='newName' id='newName' maxlength="20"
+                                <input type='text' name='newName' id='newName' maxlength="20"
                                 onChange={(el)=>this.onChangename(el.target.value) }
                                 value={this.state.user.name}/>
                                 {this.state.t}
-                            </FormGroup>
+                            </FormGroup><br />
                             
                             
                             
                             <FormGroup>
                                 <Label>Github Link</Label>
-                                <Input type='text' name='newyt' id='newyt'
+                                <input type='text' name='newyt' id='newyt'
                                 onChange={(el)=>this.onChangegithub(el.target.value)}
                                 value={this.state.user.github}/>
                                 
-                            </FormGroup>
+                            </FormGroup><br />
                             <FormGroup>
-                                <ReactQuill 
+                            <Label>Description</Label>
+                            <div className="reactquill-bg">
+                            <ReactQuill 
                                 ref={(el)=>this.quill=el}
                                 value={this.state.user.desc}
                                 onChange={(el)=>this.onChangedesc(el)}
@@ -263,35 +271,45 @@ componentDidMount(){
                                 formats={this.formats}
                                 modules={this.modules}
                                 />
-                                Note: select text then click on link, select text then click on clean format (tx sorta symbol)
+                            </div>
+                              
+                                Note: select text then click on link, select text then click on clean format (tx sorta symbol)<br />
                                 Note: first code is codeblock next is inline code
-                                <br />
-                                <br />
                                 
-                            </FormGroup>
-                            <Button onClick={(e)=>this.submitArticle()}>Save profile</Button>
-                            <br />
-                            <br />
-                            <FormGroup>
+                                
+                            </FormGroup><br />
+                            <button onClick={(e)=>this.submitArticle()}>Save profile</button>
+                                </div>
+                            </div>
+
+                            
+                            <div className="settings-section">
+                                <div><h2>Account Settings</h2></div>
+                                <div>
+                                <FormGroup>
                                 <Label>Email</Label>
-                                <Input type='text' name='newEmail' id='newEmail'
+                                <input type='text' name='newEmail' id='newEmail'
                                 onChange={(el)=>this.onChangeat(el.target.value)}
                                 value={this.state.user.email}/>
                                 
-                            </FormGroup>
+                            </FormGroup><br />
                             <FormGroup>
                             
                                 <Label>Change Password:</Label>
-                             <Input id="input-field" type="password"  onChange={(e)=>{newPassword=e.target.value}} />A user can request for reset password a maximum of 3 times within 1 hour.<br />
-                            </FormGroup>
+                             <input id="input-field" type="password"  onChange={(e)=>{newPassword=e.target.value}} />A user can request for reset password a maximum of 3 times within 1 hour.<br />
+                             ps: password changes for now if msg=user credential is invalid
+                            </FormGroup><br />
+                            
+                        
+                       
+                            
+                            <button onClick={(e)=>this.submitpw()}>Confirm Changes</button>
+                                </div>
+                            </div>
                             
                         </div>
-                        <div >
-                            
-                            <Button onClick={(e)=>this.submitpw()}>Confirm Changes</Button>
-                        </div>
-                    </div>
-                </Container>
+                    
+               
             </div>
         )
     }

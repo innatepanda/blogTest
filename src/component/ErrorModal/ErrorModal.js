@@ -19,14 +19,14 @@ class ErrorModal extends React.Component{
     render(){
         
         var cname="content "+this.state.details.color
-        var mname="modal "+this.state.details.open
+        var mname="modal centered-div"+this.state.details.open
       return(
         <div className={mname}>
             <div className={cname}>
                {
               this.state.details.msg
           }
-          <button onClick={()=>{var toggle=this.state.details
+          <button className="btn-none" onClick={()=>{var toggle=this.state.details
           toggle={
               ...toggle,
               open: !toggle.open

@@ -85,7 +85,7 @@ const db=firebase.firestore();
               
               return (
                 <div>
-                  <Navbar color="light" light expand="md">
+                  <Navbar color="light" light expand="md" sticky="top">
                     <NavbarBrand href="/">Home</NavbarBrand>
                     <NavbarToggler onClick={this.toggle} />
                     <Collapse isOpen={this.state.open} navbar>
