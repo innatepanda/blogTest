@@ -9,7 +9,7 @@ const db=firebase.firestore();
 
 var isLoaded=false
 var articles=[]
-                
+var st=''                
                 
                 
 class SearchPage extends Component{
@@ -32,7 +32,7 @@ class SearchPage extends Component{
         var yyyy = this.today.getFullYear();
 
         this.today = yyyy + '-' + mm + '-' + dd;
-        var st=props.word
+        st=props.word
         
             
             this.getArt(st)
@@ -42,7 +42,7 @@ class SearchPage extends Component{
     shouldComponentUpdate(nextprops){
         isLoaded=false
         
-        var st=this.props.word
+        st=this.props.word
         
         
         this.getArt(st)
@@ -51,7 +51,7 @@ class SearchPage extends Component{
     
 
 
-        getArt=async (st)=>{
+        getArt=async ()=>{
             var p=firebase.auth().currentUser
             
             await db.collection("posts").where("Created", "<=",this.today )
@@ -97,7 +97,7 @@ class SearchPage extends Component{
                 </div>
             )
         }
-        if(isLoaded==false)
+        if(isLoaded===false)
         {
             return(
                 <div className="error-div small-text-purple">
@@ -111,7 +111,7 @@ class SearchPage extends Component{
                 <div className="edit-main">
                 <div className="ribbon-long"></div>
                 <div>
-                                <div className="article-title"><b>Search results</b></div><br /><br />
+                                <div className="article-title"><b>Search results for <span className="small-text-purple">{st}</span></b></div><br /><br />
 
                                 {  
                                     isLoaded?                     

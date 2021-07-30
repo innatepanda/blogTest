@@ -6,7 +6,7 @@ import {withRouter} from 'react-router-dom'
 import firebase from '../../../src/component/Config/firebase'
 import YouTubePlayer from 'react-player/youtube';
 import {Link} from 'react-router-dom'
-import PenFill from '../../resources/pen-fill.svg'
+
 import './viewarticle.css'
 const opts = {
     width: '90px',

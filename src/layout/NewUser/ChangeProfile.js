@@ -27,7 +27,7 @@ class ChangeProfile extends Component{
         super(props);
         
         this.state={
-            auth: props.auth,
+            
             user:{
                 name:"",
                 email:"",
@@ -131,7 +131,7 @@ class ChangeProfile extends Component{
 
     submitArticle=()=>{
         console.log(this.state.article)
-        db.collection("users").doc(this.state.auth.uid).update({
+        db.collection("users").doc(this.state.actualuser.uid).update({
             name:this.state.user.name,
             email: this.state.user.email,
             desc: this.state.user.desc,
@@ -147,7 +147,7 @@ class ChangeProfile extends Component{
                 
               }).then(() => {
                 // Update successful
-                this.props.history.push('/user-profile/'+this.state.auth.uid+'/'+this.state.user.name)
+                this.props.history.push('/user-profile/'+this.state.actualuser.uid+'/'+this.state.user.name)
                 // ...
               }).catch((error) => {
                 // An error occurred
@@ -210,7 +210,7 @@ class ChangeProfile extends Component{
         
     }
 componentDidMount(){
-    db.collection("users").doc(this.state.auth.uid).get().then(
+    db.collection("users").doc(this.state.actualuser.uid).get().then(
         doc=>{console.log(doc.data())
         this.setState({
             user:{

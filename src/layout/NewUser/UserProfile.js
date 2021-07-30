@@ -223,9 +223,9 @@ class ViewArticle extends Component{
        }
        else{
            return(
-               <div>
-                   loading..
-               </div>
+            <div className="error-div small-text-purple">
+            loading..
+            </div>
            )
        }
     }

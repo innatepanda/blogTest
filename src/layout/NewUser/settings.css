@@ -62,3 +62,9 @@ Button{
 .description p{
     margin:0;
 }
+.btns{
+    width:70%;
+    margin: auto;
+    text-align: center;
+    
+}

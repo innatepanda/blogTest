@@ -1,9 +1,8 @@
 import React, {Component} from 'react'
-import {Container} from 'reactstrap'
-import ArticleCard from "../../../component/ArticleCard/ArticleCard"
+
 import firebase from "../../../component/Config/firebase"
 
-import classes from './Main.module.css'
+
 import {Link} from 'react-router-dom'
 
 const db=firebase.firestore();
@@ -43,7 +42,7 @@ class Main extends Component{
             
             var p=this.state.prop.auth
             db.collection("posts").where("Created", "<=",this.today )
-            .orderBy("Created", "desc").limit(4).get().then(docs=>{
+            .orderBy("Created", "desc").limit(2).get().then(docs=>{
                 let art=[];
                 docs.forEach(function(doc){
                     const article={
@@ -65,18 +64,49 @@ class Main extends Component{
         }
     render(){
         return(
-            <div className={classes.body}>
-                <h1 className={classes.title}>BLOG</h1>
-                <Container className={classes.main}>
+            <div div className="user-main">
+                       <div>
+                    <div className="article-title"><b>XoRphilic</b></div><div className="description">By default, a background-image is placed at the top-left corner of an element, and repeated both vertically and horizontally.</div><br /><br />
+                    <Link to={{pathname:'/allArticles', state:{article:this.state.data}}}> View All </Link>
+                   
+
+                    
+                    </div>
+                <div className="user-content">
                  {  
                     this.state.isLoaded?                     
                     this.state.articles.map((article, index)=>{
                        
                         return (
                             <div>
-                                <ArticleCard 
-                                key={index}
-                                data={article}/>
+                                          <div className="each-article">
+                                    <div className="side-number">{index+1}</div>
+                                        <div >
+                        
+                        
+                                <h5 >
+                                    {article.Title}
+                                </h5>
+                        
+                                <hr />
+                                <div className="small-text-purple">{article.Category}</div>
+                            <h6>
+                        
+                            <p className="small-text">
+                            {article.Summary}
+                            </p>
+
+                            </h6>
+                        
+                                    <button onClick={()=>{
+                                        this.props.history.push('/article/'  +article.id+'/'+article.Title)
+                                    }}>Read More</button>
+
+
+
+                            </div>
+                                
+                        </div>
                                 
                             </div>
                             
@@ -84,8 +114,8 @@ class Main extends Component{
                         )
                     }) :" "
                 }  
-                </Container>
-                <Link to={{pathname:'/allArticles', state:{article:this.state.data}}}> View All </Link>
+                </div>
+                
 
                 
             </div>

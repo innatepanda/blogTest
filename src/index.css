@@ -48,6 +48,6 @@ button{
 }
 
 .disabled{
-  opacity:0.7 !important;
+  opacity:0.5 !important;
   pointer-events: none;
 }

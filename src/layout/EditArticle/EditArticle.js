@@ -1,7 +1,7 @@
 
 import React, {Component} from 'react'
 
-import {Container, FormGroup, Label, input, Button} from 'reactstrap'
+import {FormGroup, Label} from 'reactstrap'
 import ReactQuill from 'react-quill'
 import 'react-quill/dist/quill.snow.css'
 import firebase from 'firebase'

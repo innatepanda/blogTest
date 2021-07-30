@@ -1,6 +1,5 @@
 import React, {Component} from 'react'
-import {Container} from 'reactstrap'
-import {Link} from 'react-router-dom'
+
 import firebase from "../../../component/Config/firebase"
 /*import {button} from 'reactstrap'
 import {Link} from 'react-router-dom'
@@ -70,84 +69,90 @@ class AllArticles extends Component{
         console.log(thispageArticles)
         return(
             <div>
-                <Container>
-                 {  
+                <div className="edit-main">
+                <div className="ribbon-long"></div>
+                <div>
+                <div className="article-title"><b>All Articles</b></div><br /><br />
+                {  
                     this.state.isLoaded?                     
                     thispageArticles.map((article, index)=>{
                        
                         return (
-                            <div>
-                                  <div >
+                            <div className="each-article">
+                                <div className="side-number">{index+1+this.state.perpage*this.state.pg}</div>
+                                    <div >
                     
                     
                     <h5 >
                         {article.Title}
                     </h5>
+                    
                     <hr />
-                     
+                    <div className="small-text-purple">{article.Category}</div>
                     <h6>
-                    <b>{article.Created.split("-")[2]}-{article.Created.split("-")[1]}-{article.Created.split("-")[0]}</b> by <b>{article.AuthorName}</b>
-                        <p>
+                    by <b>{article.AuthorName}</b>
+                        <p className="small-text">
                         {article.Summary}
                         </p>
 
                     </h6>
-                    <Link to={{pathname:'/article/'  +article.id+'/'+article.Title, state:{article:article}}}> Go </Link><br />
                     
-                    {
-                                   firebase.auth().currentUser!==null? firebase.auth().currentUser.uid===article.Author?
+                                <button onClick={()=>{
+                                    this.props.history.push('/article/'  +article.id+'/'+article.Title)
+                                }}>Read More</button>
 
-                                    <Link to={{pathname:'/iJ6hjvpfuivhi0pioubxjovbbdYVyfgv/edit-article' , state:{
-                                        article:article
-                                        
-                                    }}}> Edit </Link>
-                                    :''
-                                    :''
 
-                                }
-               
-                
 
-                </div>
-                            <hr />    
+                    </div>
+                            
                             </div>
                             
-                           
+                            
                         )
                     }) :" "
                 }  
                  <div className="btns">
-                    {
-                        this.state.pg===0?
-                        <button color="info" className="button" disabled>prev</button>:
-                        <button color="info" className="button" onClick={()=>{
-                            this.setState({
-                            pg:this.state.pg-1
-                            }, ()=>{
-                                
-                            //window.history.replaceState(thispageArticles, "Articles", "/Articles/"+(this.state.pg+1))
-
-                            })
-                        }}>prev</button>
-                        }
-                        pg-{this.state.pg+1}
-                        {
-                        this.state.pg===this.state.maxpgs-1 ?
-                        <button color="info" disabled className="button">next</button>:
-                        <button color="info" className="button" onClick={()=>{
-                            this.setState({
-                            pg:this.state.pg+1
-                            }, ()=>{
-                            //window.history.replaceState(thispageArticles, "Articles", "/Articles/"+(this.state.pg+1))
-                            })
-                        }}>next</button>
-                        }
+                 {
+                            this.state.pg===0?
+                            <button color="info" className="btn-none disabled" ><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-left" viewBox="0 0 16 16">
+                            <path fill-rule="evenodd" d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z"/>
+                          </svg></button>:
+                            <button color="info" className="btn-none" onClick={()=>{
+                                this.setState({
+                                pg:this.state.pg-1
+                                }, ()=>{
+                                    
+                                //window.history.replaceState(thispageArticles, "Articles", "/Articles/"+(this.state.pg+1))
+    
+                                })
+                            }}><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-left" viewBox="0 0 16 16">
+                            <path fill-rule="evenodd" d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z"/>
+                          </svg></button>
+                            }
+                            pg-{this.state.pg+1}
+                            {
+                            this.state.pg===this.state.maxpgs-1 ?
+                            <button color="info"  className="btn-none disabled"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-right" viewBox="0 0 16 16">
+                            <path fill-rule="evenodd" d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8z"/>
+                          </svg></button>:
+                            <button color="info" className="btn-none" onClick={()=>{
+                                this.setState({
+                                pg:this.state.pg+1
+                                }, ()=>{
+                                //window.history.replaceState(thispageArticles, "Articles", "/Articles/"+(this.state.pg+1))
+                                })
+                            }}><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-right" viewBox="0 0 16 16">
+                            <path fill-rule="evenodd" d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8z"/>
+                          </svg></button>
+                            }
 
                 </div>
+                </div>
+        
 
-                </Container>
+            
 
-                
+                </div>
             </div>
         )
     }

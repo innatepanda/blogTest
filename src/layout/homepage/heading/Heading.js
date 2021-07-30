@@ -1,6 +1,6 @@
 
 
-import {Link} from "react-router-dom";
+
 import firebase from '../../../component/Config/firebase'
 import React, { Component} from 'react';
 import {
@@ -15,9 +15,9 @@ import {
   DropdownToggle,
   DropdownMenu,
   DropdownItem,
-  Button
+  
 } from 'reactstrap';
-
+import './header.css'
 const db=firebase.firestore();
       class Heading extends Component { 
         
@@ -54,10 +54,11 @@ const db=firebase.firestore();
                 display:props.auth.email,
                 name:'',
                 open:false,
-                searchfunc:props.searchword
+                searchfunc:props.searchword,
+                searchword:''
               
               }
-              console.log(props)
+              
               
               if(!props.auth.isEmpty)
                 this.getauth()
@@ -85,18 +86,15 @@ const db=firebase.firestore();
               
               return (
                 <div>
-                  <Navbar color="light" light expand="md" sticky="top">
-                    <NavbarBrand href="/">Home</NavbarBrand>
+                  
+                  <Navbar dark expand="md" className="header">
+                    <NavbarBrand href="/">XoRphilic</NavbarBrand>
                     <NavbarToggler onClick={this.toggle} />
                     <Collapse isOpen={this.state.open} navbar>
                       <Nav className="ml-auto" navbar>
-                        {this.props.auth.isEmpty?
-                        ' ': 
-                          <NavItem>
-                          <NavLink href='/iJ6hjvpfuivhi0pvikbshvYVyfgv/new-article'>New Article</NavLink>
-                        </NavItem>
-                        
-                      }
+                      <NavItem>
+                          <NavLink href='/'>Home</NavLink>
+                          </NavItem>
                       
                         <UncontrolledDropdown nav inNavbar>
                           <DropdownToggle nav caret>
@@ -106,9 +104,24 @@ const db=firebase.firestore();
                           {this.props.auth.isEmpty?
                         ' ': 
                           <DropdownItem>
-                          <Link to={{pathname:'/change-settings', state:{profile:this.props.auth}}}>
-                                  Profile Settings
-                                </Link>
+                           
+                          <button className="btn-none" href='/iJ6hjvpfuivhi0pvikbshvYVyfgv/new-article'>New Article</button>
+                          
+                          
+                                
+                        </DropdownItem>
+                        
+                        
+                      }
+                         {this.props.auth.isEmpty?
+                        ' ': 
+                          <DropdownItem>
+                           
+                         
+                          
+                          <button className="btn-none" href='/change-settings'>Profile Settings
+                                </button>
+                                
                         </DropdownItem>
                         
                         
@@ -118,13 +131,13 @@ const db=firebase.firestore();
                               
                               this.props.auth.isEmpty?
                               <DropdownItem>
-                                <Link to={{pathname:'/login'}}>
+                                <button href='/login'>
                                   Login
-                                </Link>
+                                </button>
                               
                             </DropdownItem>
                             : <DropdownItem>
-                              <Button onClick={()=>
+                              <button className="btn-none" onClick={()=>
                                 {firebase.auth().signOut()
                                 this.setState({
                                   display:'',
@@ -135,7 +148,7 @@ const db=firebase.firestore();
                               }
                                 } href="/">
                                 Logout
-                              </Button>
+                              </button>
                           </DropdownItem>
                         } 
                             
@@ -147,16 +160,26 @@ const db=firebase.firestore();
                       </Nav>
                       
                     </Collapse>
-                    <input type='text' name='inp' id='inp' 
-                                onChange={(el)=>{this.onChangeSearch(el.target.value)} }
-                                />
+                    <NavItem className="search-bar">
+                                <input type='text' name='inp' id='inp'  onChange={(el)=>{this.onChangeSearch(el.target.value)} }/>
                                 
                                   
                                 
-                                    <button onClick={async ()=>{
-                                      await this.state.searchfunc(this.state.searchword)
-                                      this.props.history.push('/searchpage/'+this.state.searchword )
-                                    }}>search</button>
+                                <button className="btn-none" onClick={async ()=>{
+                                  console.log(this.state.searchword)
+                                  if(this.state.searchword!=='')
+                                  {
+                                    await this.state.searchfunc(this.state.searchword)
+                                  this.props.history.push('/searchpage/'+this.state.searchword )
+
+                                  }
+                                  
+                                }}><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+                                <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
+                              </svg></button>
+
+                    </NavItem>
+                
                                 
                                 
                                 
